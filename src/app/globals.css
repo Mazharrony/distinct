@@ -1,26 +1,340 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* ---------------------------------------------------------------------------
+   Distinct Solutions — design tokens
+
+   The brand colours are vivid mid-tones. Measured against white they are
+   decorative, not text-safe (Cyan 2.66:1, Teal 2.33:1, Emerald 2.20:1), so:
+
+     - on LIGHT surfaces only --color-brand-deep (6.45:1) and --color-ink
+       (15.16:1) carry text; the spectrum appears as gradient, icon fill and rule
+     - on INK surfaces the whole spectrum comes forward (5.7–6.9:1) as accent
+
+   Never place cyan/teal/emerald text on white.
+--------------------------------------------------------------------------- */
+
+@theme {
+  /* Brand spectrum */
+  --color-brand-blue: #0089d1;
+  --color-brand-cyan: #00afc0;
+  --color-brand-teal: #00bfa5;
+  --color-brand-emerald: #00c878;
+  --color-brand-deep: #006879;
+
+  /* Deep teal tints, for hovers and washes */
+  --color-brand-deep-700: #005766;
+  --color-brand-deep-800: #004553;
+
+  /* Ink — a teal-tinted near-black so dark sections stay in the brand family */
+  --color-ink: #052a33;
+  --color-ink-800: #0b3b45;
+  --color-ink-700: #14505c;
+
+  /* Neutrals */
+  --color-body: #334155;
+  --color-muted: #64748b;
+  --color-surface: #ffffff;
+  --color-surface-subtle: #f6f9fa;
+  --color-surface-tint: #eef6f7;
+  --color-line: #e2e8f0;
+  --color-line-strong: #cbd5e1;
+
+  /* Feedback */
+  --color-danger: #dc2626;
+  --color-success: #047857;
+
+  /* Fonts (wired up in layout.tsx via next/font) */
+  --font-heading: var(--font-outfit), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+
+  /* Type scale */
+  --text-2xs: 0.6875rem;
+
+  /* Section rhythm */
+  --spacing-section: 4rem;
+  --spacing-section-lg: 7rem;
+
+  /* Motion */
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-background: var(--color-surface);
+  --color-foreground: var(--color-ink);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* --- Base ---------------------------------------------------------------- */
+
+@layer base {
+  * {
+    border-color: var(--color-line);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    /* Sticky header clearance for in-page anchors */
+    scroll-padding-top: 5.5rem;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background: var(--color-surface);
+    color: var(--color-body);
+    font-family: var(--font-sans);
+    line-height: 1.6;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-heading);
+    color: var(--color-ink);
+    line-height: 1.15;
+    text-wrap: balance;
+    letter-spacing: -0.02em;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  /* One consistent, visible focus ring everywhere */
+  :focus-visible {
+    outline: 3px solid var(--color-brand-blue);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  ::selection {
+    background: var(--color-brand-deep);
+    color: #fff;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* --- Utilities ----------------------------------------------------------- */
+
+@utility gradient-brand {
+  background-image: linear-gradient(
+    90deg,
+    var(--color-brand-blue) 0%,
+    var(--color-brand-cyan) 34%,
+    var(--color-brand-teal) 67%,
+    var(--color-brand-emerald) 100%
+  );
+}
+
+/* The brand gradient, slowly panning back and forth. The stops run out to
+   emerald and back to blue so the palindrome reverses seamlessly — no jump at
+   the loop point. Used on the gradient-border cards. */
+@utility gradient-brand-animated {
+  background-image: linear-gradient(
+    90deg,
+    var(--color-brand-blue) 0%,
+    var(--color-brand-cyan) 17%,
+    var(--color-brand-teal) 33%,
+    var(--color-brand-emerald) 50%,
+    var(--color-brand-teal) 67%,
+    var(--color-brand-cyan) 83%,
+    var(--color-brand-blue) 100%
+  );
+  background-size: 200% 100%;
+  animation: gradient-pan 9s ease-in-out infinite alternate;
+}
+
+/* Gradient headline text. Only for display sizes — the spectrum is not
+   text-safe at body weight on white. */
+@utility text-gradient-brand {
+  background-image: linear-gradient(
+    90deg,
+    var(--color-brand-blue) 0%,
+    var(--color-brand-cyan) 40%,
+    var(--color-brand-teal) 70%,
+    var(--color-brand-emerald) 100%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+/* 4px gradient rule used under section headings */
+@utility rule-brand {
+  display: block;
+  width: 3.5rem;
+  height: 0.25rem;
+  border-radius: 999px;
+  background-image: linear-gradient(
+    90deg,
+    var(--color-brand-blue),
+    var(--color-brand-emerald)
+  );
+}
+
+@utility measure {
+  max-width: 68ch;
+}
+
+/* --- Motion ---------------------------------------------------------------
+
+   Two mechanisms, one feel:
+     .reveal   — scroll-triggered, driven by IntersectionObserver (Reveal.tsx)
+     .rise-in  — load-triggered, for above-the-fold content the observer would
+                 fire for instantly anyway
+
+   Both share the same easing and distance so the page reads as one system.
+   Everything is switched off under prefers-reduced-motion at the foot of this
+   file; `animation-fill-mode: both` means content lands on its final state.
+--------------------------------------------------------------------------- */
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* A slow settle on hero photography — perceptible, never distracting. */
+@keyframes settle-in {
+  from {
+    opacity: 0;
+    transform: scale(1.05);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* The brand rule draws itself in under a heading. */
+@keyframes rule-draw {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes gradient-pan {
+  from {
+    background-position: 0% 50%;
+  }
+  to {
+    background-position: 100% 50%;
+  }
+}
+
+/* Ambient drift on the decorative background glows. */
+@keyframes drift {
+  from {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  to {
+    transform: translate3d(2%, -3%, 0) scale(1.08);
+  }
+}
+
+@layer components {
+  .reveal {
+    opacity: 0;
+    transform: translateY(14px);
+    transition:
+      opacity 500ms var(--ease-out-soft),
+      transform 500ms var(--ease-out-soft);
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+
+  .reveal[data-visible="true"] {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* Draw the rule once its heading has arrived. */
+  .reveal .rule-brand {
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+
+  .reveal[data-visible="true"] .rule-brand {
+    animation: rule-draw 500ms var(--ease-out-soft) 160ms both;
+  }
+
+  .rise-in {
+    animation: rise-in 600ms var(--ease-out-soft) both;
+    animation-delay: var(--rise-delay, 0ms);
+  }
+
+  .fade-in {
+    animation: fade-in 700ms var(--ease-out-soft) both;
+    animation-delay: var(--rise-delay, 0ms);
+  }
+
+  .settle-in {
+    animation: settle-in 1100ms var(--ease-out-soft) both;
+  }
+
+  .ambient-drift {
+    animation: drift 22s ease-in-out infinite alternate;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  /* Content must be present immediately — never staged behind a delay. */
+  .reveal,
+  .reveal[data-visible="true"] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .reveal .rule-brand,
+  .reveal[data-visible="true"] .rule-brand {
+    transform: none;
+    animation: none;
+  }
+
+  .rise-in,
+  .fade-in,
+  .settle-in,
+  .ambient-drift {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+
+  /* Hold the gradient still, mid-sweep, rather than parked at one end. */
+  .gradient-brand-animated {
+    animation: none;
+    background-position: 50% 50%;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    /* Zeroed too — a delay with a 0.01ms duration still hides content. */
+    animation-delay: 0s !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

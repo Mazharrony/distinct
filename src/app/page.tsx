@@ -1,69 +1,170 @@
 import Image from "next/image";
+import Link from "next/link";
+import { ArrowRight, Check } from "lucide-react";
+import { Container } from "@/components/ui/Container";
+import { SectionHeading } from "@/components/ui/SectionHeading";
+import { ButtonLink } from "@/components/ui/Button";
+import { Reveal } from "@/components/ui/Reveal";
+import { Hero } from "@/components/sections/Hero";
+import { ServiceCard } from "@/components/sections/ServiceCard";
+import { WhyChoose } from "@/components/sections/WhyChoose";
+import { ProcessSteps } from "@/components/sections/ProcessSteps";
+import { OfferBanner } from "@/components/sections/OfferBanner";
+import { CTASection } from "@/components/sections/CTASection";
+import { services } from "@/content/services";
+import { featuredImages } from "@/content/gallery";
+import { blurMap } from "@/content/blur";
+import { commitments } from "@/content/site";
 
-export default function Home() {
+export default function HomePage() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
+    <>
+      <Hero />
+
+      {/* Intro */}
+      <section className="py-16 lg:py-24">
+        <Container>
+          <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
+            <div>
+              <SectionHeading
+                eyebrow="About us"
+                title="British standards. Local expertise. Distinct results."
+                description="Distinct Solutions & Technical Services is a British-run property maintenance, technical services, renovation and fit-out company based in Dubai, UAE."
+              />
+              <p className="measure mt-6 text-body">
+                We provide reliable, professional solutions for residential and
+                commercial properties — from everyday maintenance and repairs to
+                complete renovations, interior fit-outs, landscaping and
+                specialist property services.
+              </p>
+              <p className="measure mt-4 text-body">
+                With a focus on quality workmanship, transparent pricing and
+                dependable project management, we aim to get the job done right
+                — first time.
+              </p>
+
+              <ul className="mt-8 grid gap-x-6 gap-y-3 sm:grid-cols-2">
+                {commitments.slice(0, 6).map((item) => (
+                  <li key={item} className="flex items-start gap-3">
+                    <Check
+                      className="mt-0.5 size-5 shrink-0 text-brand-deep"
+                      strokeWidth={2.25}
+                      aria-hidden="true"
+                    />
+                    <span className="text-[0.9375rem] text-body">{item}</span>
+                  </li>
+                ))}
+              </ul>
+
+              <ButtonLink href="/about" variant="secondary" className="mt-9">
+                More about us
+                <ArrowRight className="size-4" aria-hidden="true" />
+              </ButtonLink>
+            </div>
+
+            <Reveal className="relative">
+              <div className="relative aspect-4/5 overflow-hidden rounded-3xl sm:aspect-3/4 lg:aspect-4/5">
+                <Image
+                  src="/gallery/bespoke-walnut-kitchen-joinery.jpeg"
+                  alt="Bespoke walnut kitchen joinery installed in a Dubai apartment"
+                  fill
+                  sizes="(min-width: 1024px) 45vw, 100vw"
+                  placeholder="blur"
+                  blurDataURL={blurMap["/gallery/bespoke-walnut-kitchen-joinery.jpeg"]}
+                  className="object-cover"
+                />
+              </div>
+              {/* Offset accent bar, tucked behind the lower-left corner */}
+              <div
+                aria-hidden="true"
+                className="gradient-brand absolute -bottom-4 -left-4 -z-10 h-24 w-1.5 rounded-full"
+              />
+              <div
+                aria-hidden="true"
+                className="gradient-brand absolute -bottom-4 -left-4 -z-10 h-1.5 w-24 rounded-full"
+              />
+            </Reveal>
+          </div>
+        </Container>
+      </section>
+
+      {/* Services */}
+      <section id="services" className="bg-surface-subtle py-16 lg:py-24">
+        <Container>
+          <SectionHeading
+            eyebrow="Our services"
+            title="One company. Every solution."
+            description="Managing a property can involve multiple trades and contractors. We provide a single point of contact for a wide range of property requirements."
+          />
+
+          <ul className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {services.map((service, index) => (
+              <Reveal as="li" key={service.slug} delay={(index % 3) * 40}>
+                <ServiceCard service={service} />
+              </Reveal>
+            ))}
+          </ul>
+
+          <div className="mt-10 flex justify-center">
+            <ButtonLink href="/services" variant="secondary" size="lg">
+              View all services
+              <ArrowRight className="size-4" aria-hidden="true" />
+            </ButtonLink>
+          </div>
+        </Container>
+      </section>
+
+      <WhyChoose />
+
+      {/* Recent work */}
+      <section className="py-16 lg:py-24">
+        <Container>
+          <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+            <SectionHeading
+              eyebrow="Our work"
+              title="Recent projects"
+              description="A selection of completed fit-out, joinery and installation work across Dubai."
             />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+            <ButtonLink href="/gallery" variant="secondary" className="shrink-0">
+              View gallery
+              <ArrowRight className="size-4" aria-hidden="true" />
+            </ButtonLink>
+          </div>
+
+          <ul className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {featuredImages.map((image, index) => (
+              <Reveal as="li" key={image.src} delay={(index % 3) * 40}>
+                <Link
+                  href="/gallery"
+                  className="group relative block aspect-4/3 overflow-hidden rounded-2xl bg-surface-subtle"
+                >
+                  <Image
+                    src={image.src}
+                    alt={image.alt}
+                    fill
+                    sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                    placeholder="blur"
+                    blurDataURL={blurMap[image.src]}
+                    className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+                  />
+                  <span
+                    aria-hidden="true"
+                    className="absolute inset-0 flex items-end bg-gradient-to-t from-ink/85 via-ink/15 to-transparent p-5"
+                  >
+                    <span className="text-sm font-medium text-white">
+                      {image.caption}
+                    </span>
+                  </span>
+                </Link>
+              </Reveal>
+            ))}
+          </ul>
+        </Container>
+      </section>
+
+      <ProcessSteps />
+      <OfferBanner />
+      <CTASection />
+    </>
   );
 }

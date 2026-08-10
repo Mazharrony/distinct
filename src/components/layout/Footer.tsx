@@ -1,0 +1,170 @@
+import Link from "next/link";
+import { Mail, MapPin, Phone } from "lucide-react";
+import { WhatsAppIcon } from "@/components/ui/icons/WhatsAppIcon";
+import { Container } from "@/components/ui/Container";
+import { LogoMark } from "@/components/ui/Logo";
+import {
+  mailLink,
+  mainNav,
+  site,
+  telLink,
+  whatsappLink,
+} from "@/content/site";
+import { services } from "@/content/services";
+
+const legalNav = [
+  { label: "Privacy Policy", href: "/privacy" },
+  { label: "Terms & Conditions", href: "/terms" },
+];
+
+export function Footer() {
+  return (
+    <footer className="bg-ink text-white/70">
+      <Container className="py-14 lg:py-18">
+        <div className="grid gap-12 lg:grid-cols-[1.4fr_1fr_1fr_1.1fr]">
+          <div>
+            <div className="flex items-center gap-3">
+              <LogoMark className="h-10 w-10 shrink-0" gradientId="footer-mark" />
+              <span className="flex flex-col leading-none">
+                <span className="font-heading text-xl font-bold tracking-[0.08em] text-white uppercase">
+                  Distinct
+                </span>
+                <span className="font-heading mt-1 text-[0.625rem] font-medium tracking-[0.22em] text-brand-teal uppercase">
+                  {site.tagline}
+                </span>
+              </span>
+            </div>
+            <p className="mt-5 max-w-sm text-sm leading-relaxed">
+              {site.name}. British-run property maintenance, technical services,
+              renovation and fit-out across Dubai.
+            </p>
+            <p className="font-heading mt-5 text-sm font-semibold text-white">
+              {site.strapline}
+            </p>
+          </div>
+
+          <nav aria-label="Footer">
+            <h2 className="font-heading text-xs font-semibold tracking-[0.18em] text-white uppercase">
+              Company
+            </h2>
+            <ul className="mt-4 flex flex-col gap-1">
+              {mainNav.map((item) => (
+                <li key={item.href}>
+                  <Link
+                    href={item.href}
+                    className="flex min-h-9 items-center text-sm transition-colors hover:text-white"
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
+              <li>
+                <Link
+                  href="/offer"
+                  className="flex min-h-9 items-center text-sm text-brand-emerald transition-colors hover:text-white"
+                >
+                  New customer offer
+                </Link>
+              </li>
+            </ul>
+          </nav>
+
+          <nav aria-label="Services">
+            <h2 className="font-heading text-xs font-semibold tracking-[0.18em] text-white uppercase">
+              Services
+            </h2>
+            <ul className="mt-4 flex flex-col gap-1">
+              {services.map((service) => (
+                <li key={service.slug}>
+                  <Link
+                    href={`/services/${service.slug}`}
+                    className="flex min-h-9 items-center text-sm transition-colors hover:text-white"
+                  >
+                    {service.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
+          <div>
+            <h2 className="font-heading text-xs font-semibold tracking-[0.18em] text-white uppercase">
+              Get in touch
+            </h2>
+            <ul className="mt-4 flex flex-col gap-3 text-sm">
+              <li>
+                <a
+                  href={telLink}
+                  className="flex min-h-9 items-center gap-3 transition-colors hover:text-white"
+                >
+                  <Phone className="size-4 shrink-0 text-brand-teal" aria-hidden="true" />
+                  <span className="tabular-nums">{site.phone.display}</span>
+                </a>
+              </li>
+              <li>
+                <a
+                  href={whatsappLink()}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex min-h-9 items-center gap-3 transition-colors hover:text-white"
+                >
+                  <WhatsAppIcon className="size-4 shrink-0 text-brand-teal" aria-hidden="true" />
+                  WhatsApp us
+                </a>
+              </li>
+              <li>
+                <a
+                  href={mailLink}
+                  className="flex min-h-9 items-center gap-3 break-all transition-colors hover:text-white"
+                >
+                  <Mail className="size-4 shrink-0 text-brand-teal" aria-hidden="true" />
+                  {site.email}
+                </a>
+              </li>
+              <li className="flex items-start gap-3 pt-1">
+                <MapPin className="mt-0.5 size-4 shrink-0 text-brand-teal" aria-hidden="true" />
+                <span>
+                  {site.location.display}
+                  <span className="mt-1 block text-xs text-white/50">
+                    {site.hours}
+                  </span>
+                </span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div className="mt-12 flex flex-col gap-4 border-t border-white/10 pt-8 text-xs sm:flex-row sm:items-center sm:justify-between">
+          <p>
+            © {new Date().getFullYear()} {site.name}. All rights reserved.
+          </p>
+          <ul className="flex flex-wrap items-center gap-x-6 gap-y-2">
+            {legalNav.map((item) => (
+              <li key={item.href}>
+                <Link
+                  href={item.href}
+                  className="transition-colors hover:text-white"
+                >
+                  {item.label}
+                </Link>
+              </li>
+            ))}
+            <li>
+              <a
+                href="https://www.prismal.ae/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="transition-colors hover:text-white"
+              >
+                Website by{" "}
+                <span className="font-medium tracking-wide text-white/85">
+                  Prismal
+                </span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </Container>
+    </footer>
+  );
+}
