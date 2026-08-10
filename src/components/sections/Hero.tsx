@@ -2,6 +2,7 @@ import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import { WhatsAppIcon } from "@/components/ui/icons/WhatsAppIcon";
 import { Container } from "@/components/ui/Container";
+import { AmbientBackdrop } from "@/components/ui/AmbientBackdrop";
 import { ButtonLink } from "@/components/ui/Button";
 import { blurMap } from "@/content/blur";
 import { site, trustPoints, whatsappLink } from "@/content/site";
@@ -20,18 +21,22 @@ export function Hero() {
           sizes="100vw"
           placeholder="blur"
           blurDataURL={blurMap[HERO_IMAGE]}
-          className="settle-in object-cover"
+          /* Dimmed and slightly desaturated so daylight photography sits inside
+             the dark canvas instead of punching a bright hole in it. */
+          className="settle-in object-cover brightness-[0.55] saturate-[0.85]"
         />
-        {/* Scrim: solid behind the headline, clearing to the right so the
-            photography still reads. Text sits entirely in the dark half. */}
+        {/* Scrim: solid behind the headline, easing off to the right so the
+            work still reads. Text sits entirely in the dark half. */}
         <div
           aria-hidden="true"
-          className="absolute inset-0 bg-gradient-to-r from-ink from-25% via-ink/80 to-ink/20"
+          className="absolute inset-0 bg-gradient-to-r from-ink from-28% via-ink/85 to-ink/40"
         />
         <div
           aria-hidden="true"
-          className="absolute inset-0 bg-gradient-to-t from-ink/70 via-transparent to-ink/30"
+          className="absolute inset-0 bg-gradient-to-t from-ink via-ink/20 to-ink/50"
         />
+        {/* Sits above the scrim so the colour reads on the photography */}
+        <AmbientBackdrop preset="hero" />
       </div>
 
       <Container className="relative py-20 sm:py-24 lg:py-32">
@@ -50,7 +55,7 @@ export function Hero() {
             className="rise-in mt-6 text-4xl font-bold text-white sm:text-5xl lg:text-6xl"
           >
             One company.{" "}
-            <span className="text-gradient-brand">Every solution.</span>
+            <span className="text-gradient-brand-animated">Every solution.</span>
           </h1>
 
           <p
@@ -66,7 +71,7 @@ export function Hero() {
             style={{ "--rise-delay": "320ms" } as React.CSSProperties}
             className="rise-in mt-9 flex flex-col gap-3 sm:flex-row"
           >
-            <ButtonLink href="/contact" size="lg">
+            <ButtonLink href="#contact" size="lg">
               Get a free quote
               <ArrowRight className="size-4" aria-hidden="true" />
             </ButtonLink>
@@ -87,7 +92,7 @@ export function Hero() {
             Or call{" "}
             <a
               href={`tel:${site.phone.dial}`}
-              className="font-medium text-white underline decoration-brand-teal decoration-2 underline-offset-4 tabular-nums transition-colors hover:text-brand-teal"
+              className="font-medium text-white underline decoration-accent decoration-2 underline-offset-4 tabular-nums transition-colors hover:text-brand-teal"
             >
               {site.phone.display}
             </a>
@@ -95,8 +100,8 @@ export function Hero() {
         </div>
       </Container>
 
-      {/* Trust strip */}
-      <div className="relative border-t border-white/10 bg-ink/80 backdrop-blur-sm">
+      {/* Trust strip — credentials, so gold rather than emerald */}
+      <div className="relative border-t border-line bg-ink/85 backdrop-blur-sm">
         <Container>
           <ul className="grid grid-cols-2 gap-x-6 gap-y-4 py-6 lg:grid-cols-4">
             {trustPoints.map((point, index) => (
@@ -109,12 +114,14 @@ export function Hero() {
                 }
                 className="rise-in flex items-center gap-3"
               >
-                <point.icon
-                  className="size-5 shrink-0 text-brand-emerald"
-                  strokeWidth={1.75}
-                  aria-hidden="true"
-                />
-                <span className="text-sm font-medium text-white/85">
+                <span className="flex size-9 shrink-0 items-center justify-center rounded-full border border-gold/30 bg-gold/5">
+                  <point.icon
+                    className="size-4 text-gold"
+                    strokeWidth={1.75}
+                    aria-hidden="true"
+                  />
+                </span>
+                <span className="text-sm font-medium text-heading">
                   {point.label}
                 </span>
               </li>

@@ -19,17 +19,20 @@ const legalNav = [
 
 export function Footer() {
   return (
-    <footer className="bg-ink text-white/70">
+    <footer className="border-t border-line bg-ink text-body">
       <Container className="py-14 lg:py-18">
         <div className="grid gap-12 lg:grid-cols-[1.4fr_1fr_1fr_1.1fr]">
           <div>
             <div className="flex items-center gap-3">
               <LogoMark className="h-10 w-10 shrink-0" gradientId="footer-mark" />
               <span className="flex flex-col leading-none">
-                <span className="font-heading text-xl font-bold tracking-[0.08em] text-white uppercase">
+                <span className="text-gradient-logo font-heading text-xl font-bold tracking-[0.08em] uppercase">
                   Distinct
                 </span>
-                <span className="font-heading mt-1 text-[0.625rem] font-medium tracking-[0.22em] text-brand-teal uppercase">
+                <span
+                  className="font-heading mt-1 text-[0.625rem] font-medium tracking-[0.22em] uppercase"
+                  style={{ color: "var(--color-logo-cyan)" }}
+                >
                   {site.tagline}
                 </span>
               </span>
@@ -38,66 +41,66 @@ export function Footer() {
               {site.name}. British-run property maintenance, technical services,
               renovation and fit-out across Dubai.
             </p>
-            <p className="font-heading mt-5 text-sm font-semibold text-white">
+            <p className="font-heading mt-5 text-sm font-semibold text-heading">
               {site.strapline}
             </p>
           </div>
 
           <nav aria-label="Footer">
-            <h2 className="font-heading text-xs font-semibold tracking-[0.18em] text-white uppercase">
-              Company
+            <h2 className="font-heading text-xs font-semibold tracking-[0.18em] text-heading uppercase">
+              Explore
             </h2>
             <ul className="mt-4 flex flex-col gap-1">
               {mainNav.map((item) => (
                 <li key={item.href}>
-                  <Link
+                  <a
                     href={item.href}
-                    className="flex min-h-9 items-center text-sm transition-colors hover:text-white"
+                    className="flex min-h-9 items-center text-sm transition-colors hover:text-accent"
                   >
                     {item.label}
-                  </Link>
+                  </a>
                 </li>
               ))}
               <li>
-                <Link
-                  href="/offer"
-                  className="flex min-h-9 items-center text-sm text-brand-emerald transition-colors hover:text-white"
+                <a
+                  href="#offer"
+                  className="flex min-h-9 items-center text-sm text-accent transition-colors hover:text-heading"
                 >
                   New customer offer
-                </Link>
+                </a>
               </li>
             </ul>
           </nav>
 
-          <nav aria-label="Services">
-            <h2 className="font-heading text-xs font-semibold tracking-[0.18em] text-white uppercase">
+          <div>
+            <h2 className="font-heading text-xs font-semibold tracking-[0.18em] text-heading uppercase">
               Services
             </h2>
+            {/* Plain text, not links — the detail pages are disconnected while
+                the site runs as a landing page. */}
             <ul className="mt-4 flex flex-col gap-1">
               {services.map((service) => (
-                <li key={service.slug}>
-                  <Link
-                    href={`/services/${service.slug}`}
-                    className="flex min-h-9 items-center text-sm transition-colors hover:text-white"
-                  >
-                    {service.name}
-                  </Link>
+                <li
+                  key={service.slug}
+                  className="flex min-h-9 items-center text-sm"
+                >
+                  {service.name}
                 </li>
               ))}
             </ul>
-          </nav>
+          </div>
 
           <div>
-            <h2 className="font-heading text-xs font-semibold tracking-[0.18em] text-white uppercase">
+            <h2 className="font-heading text-xs font-semibold tracking-[0.18em] text-heading uppercase">
               Get in touch
             </h2>
             <ul className="mt-4 flex flex-col gap-3 text-sm">
               <li>
                 <a
                   href={telLink}
-                  className="flex min-h-9 items-center gap-3 transition-colors hover:text-white"
+                  className="flex min-h-9 items-center gap-3 transition-colors hover:text-accent"
                 >
-                  <Phone className="size-4 shrink-0 text-brand-teal" aria-hidden="true" />
+                  <Phone className="size-4 shrink-0 text-accent" aria-hidden="true" />
                   <span className="tabular-nums">{site.phone.display}</span>
                 </a>
               </li>
@@ -106,26 +109,26 @@ export function Footer() {
                   href={whatsappLink()}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex min-h-9 items-center gap-3 transition-colors hover:text-white"
+                  className="flex min-h-9 items-center gap-3 transition-colors hover:text-accent"
                 >
-                  <WhatsAppIcon className="size-4 shrink-0 text-brand-teal" aria-hidden="true" />
+                  <WhatsAppIcon className="size-4 shrink-0 text-accent" aria-hidden="true" />
                   WhatsApp us
                 </a>
               </li>
               <li>
                 <a
                   href={mailLink}
-                  className="flex min-h-9 items-center gap-3 break-all transition-colors hover:text-white"
+                  className="flex min-h-9 items-center gap-3 break-all transition-colors hover:text-accent"
                 >
-                  <Mail className="size-4 shrink-0 text-brand-teal" aria-hidden="true" />
+                  <Mail className="size-4 shrink-0 text-accent" aria-hidden="true" />
                   {site.email}
                 </a>
               </li>
               <li className="flex items-start gap-3 pt-1">
-                <MapPin className="mt-0.5 size-4 shrink-0 text-brand-teal" aria-hidden="true" />
+                <MapPin className="mt-0.5 size-4 shrink-0 text-accent" aria-hidden="true" />
                 <span>
                   {site.location.display}
-                  <span className="mt-1 block text-xs text-white/50">
+                  <span className="mt-1 block text-xs text-muted">
                     {site.hours}
                   </span>
                 </span>
@@ -134,7 +137,7 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 flex flex-col gap-4 border-t border-white/10 pt-8 text-xs sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-12 flex flex-col gap-4 border-t border-line pt-8 text-xs sm:flex-row sm:items-center sm:justify-between">
           <p>
             © {new Date().getFullYear()} {site.name}. All rights reserved.
           </p>
@@ -143,7 +146,7 @@ export function Footer() {
               <li key={item.href}>
                 <Link
                   href={item.href}
-                  className="transition-colors hover:text-white"
+                  className="transition-colors hover:text-accent"
                 >
                   {item.label}
                 </Link>
@@ -154,10 +157,10 @@ export function Footer() {
                 href="https://www.prismal.ae/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="transition-colors hover:text-white"
+                className="transition-colors hover:text-accent"
               >
                 Website by{" "}
-                <span className="font-medium tracking-wide text-white/85">
+                <span className="font-medium tracking-wide text-heading">
                   Prismal
                 </span>
               </a>

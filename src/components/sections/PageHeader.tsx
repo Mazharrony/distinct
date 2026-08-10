@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 import { Container } from "@/components/ui/Container";
+import { AmbientBackdrop } from "@/components/ui/AmbientBackdrop";
 import { Eyebrow } from "@/components/ui/SectionHeading";
 
 export type Crumb = { name: string; href: string };
@@ -20,14 +21,7 @@ export function PageHeader({
 }) {
   return (
     <section className="relative overflow-hidden bg-ink pt-10 pb-14 lg:pt-14 lg:pb-20">
-      <div
-        aria-hidden="true"
-        className="ambient-drift pointer-events-none absolute -top-24 right-0 size-[30rem] rounded-full opacity-20 blur-3xl"
-        style={{
-          background:
-            "radial-gradient(circle, var(--color-brand-teal), transparent 65%)",
-        }}
-      />
+  <AmbientBackdrop preset="left" />
 
       <Container className="relative">
         {crumbs.length ? (

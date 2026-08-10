@@ -49,17 +49,17 @@ export default function AboutPage() {
                 property improvement services.
               </p>
 
-              <h2 className="font-heading mt-10 text-2xl font-semibold text-ink">
+              <h2 className="font-heading mt-10 text-2xl font-semibold text-heading">
                 Our approach is simple
               </h2>
               <span className="rule-brand mt-4" aria-hidden="true" />
               <ol className="mt-6 flex flex-col gap-3">
                 {approach.map((step, index) => (
                   <li key={step} className="flex items-baseline gap-4">
-                    <span className="font-heading text-sm font-semibold text-brand-deep tabular-nums">
+                    <span className="font-heading text-sm font-semibold text-accent tabular-nums">
                       {String(index + 1).padStart(2, "0")}
                     </span>
-                    <span className="text-lg text-ink">{step}</span>
+                    <span className="text-lg text-heading">{step}</span>
                   </li>
                 ))}
               </ol>
@@ -94,14 +94,14 @@ export default function AboutPage() {
               </Reveal>
 
               <div className="rounded-3xl border border-line bg-surface-subtle p-8">
-                <h2 className="font-heading text-xl font-semibold text-ink">
+                <h2 className="font-heading text-xl font-semibold text-heading">
                   Our commitment
                 </h2>
                 <ul className="mt-6 grid gap-3 sm:grid-cols-2">
                   {commitments.map((item) => (
                     <li key={item} className="flex items-start gap-3">
                       <Check
-                        className="mt-0.5 size-4 shrink-0 text-brand-deep"
+                        className="mt-0.5 size-4 shrink-0 text-accent"
                         strokeWidth={2.5}
                         aria-hidden="true"
                       />

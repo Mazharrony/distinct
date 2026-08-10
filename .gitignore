@@ -40,3 +40,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Assets pulled off the site but kept locally.
+# Also recoverable from git history, so not tracked here.
+/unused-assets

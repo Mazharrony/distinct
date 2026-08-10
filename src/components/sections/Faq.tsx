@@ -18,7 +18,7 @@ export function Faq({
   return (
     <div>
       <Reveal>
-        <h2 className="font-heading text-2xl font-semibold text-ink sm:text-3xl">
+        <h2 className="font-heading text-2xl font-semibold text-heading sm:text-3xl">
           {title}
         </h2>
         <span className="rule-brand mt-4" aria-hidden="true" />
@@ -28,10 +28,10 @@ export function Faq({
         {faqs.map((faq, index) => (
           <Reveal key={faq.q} delay={index * 60}>
             <details className="group py-1">
-              <summary className="flex min-h-14 cursor-pointer list-none items-center justify-between gap-4 py-3 text-left font-medium text-ink transition-colors hover:text-brand-deep [&::-webkit-details-marker]:hidden">
+              <summary className="flex min-h-14 cursor-pointer list-none items-center justify-between gap-4 py-3 text-left font-medium text-heading transition-colors hover:text-accent [&::-webkit-details-marker]:hidden">
                 {faq.q}
                 <Plus
-                  className="size-5 shrink-0 text-brand-deep transition-transform duration-300 group-open:rotate-45"
+                  className="size-5 shrink-0 text-accent transition-transform duration-300 group-open:rotate-45"
                   aria-hidden="true"
                 />
               </summary>

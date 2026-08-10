@@ -1,47 +1,70 @@
 @import "tailwindcss";
 
 /* ---------------------------------------------------------------------------
-   Distinct Solutions — design tokens
+   Distinct Solutions — design tokens (dark)
 
-   The brand colours are vivid mid-tones. Measured against white they are
-   decorative, not text-safe (Cyan 2.66:1, Teal 2.33:1, Emerald 2.20:1), so:
+   Built from the brochure artwork: near-black canvas, emerald as the leading
+   accent, blue secondary, gold reserved for the offer.
 
-     - on LIGHT surfaces only --color-brand-deep (6.45:1) and --color-ink
-       (15.16:1) carry text; the spectrum appears as gradient, icon fill and rule
-     - on INK surfaces the whole spectrum comes forward (5.7–6.9:1) as accent
+   On dark the contrast rule INVERTS. The brand spectrum that could not carry
+   text on white now reads comfortably (measured against the page):
 
-   Never place cyan/teal/emerald text on white.
+     emerald 11.74:1 · teal 10.84:1 · gold 10.07:1 · cyan 8.54:1 · blue 6.74:1
+
+   The one trap: white on emerald is 1.67:1. Solid accent buttons take an INK
+   label, never white. --color-on-accent exists so that cannot be got wrong.
 --------------------------------------------------------------------------- */
 
 @theme {
-  /* Brand spectrum */
-  --color-brand-blue: #0089d1;
-  --color-brand-cyan: #00afc0;
-  --color-brand-teal: #00bfa5;
-  --color-brand-emerald: #00c878;
-  --color-brand-deep: #006879;
+  /* ---- Logo -------------------------------------------------------------
+     Frozen. These are the original artwork values and must never be themed —
+     the logo has to render identically whatever the surface does. Only
+     LogoMark and the wordmark read these.
+  ---------------------------------------------------------------------- */
+  --color-logo-blue: #0089d1;
+  --color-logo-cyan: #00afc0;
+  --color-logo-teal: #00bfa5;
+  --color-logo-emerald: #00c878;
 
-  /* Deep teal tints, for hovers and washes */
-  --color-brand-deep-700: #005766;
-  --color-brand-deep-800: #004553;
+  /* ---- Brand spectrum, tuned for dark surfaces ------------------------- */
+  --color-brand-blue: #12a0e8;
+  --color-brand-cyan: #00bcd4;
+  --color-brand-teal: #00d9b8;
+  --color-brand-emerald: #00e676;
 
-  /* Ink — a teal-tinted near-black so dark sections stay in the brand family */
-  --color-ink: #052a33;
-  --color-ink-800: #0b3b45;
-  --color-ink-700: #14505c;
+  /* The workhorse accent: icons, links, active states, solid buttons. */
+  --color-accent: #00e676;
+  --color-accent-soft: #00d9b8;
+  --color-accent-dim: #00b45c;
+  /* Label colour for anything sitting ON the accent. 12.02:1. */
+  --color-on-accent: #06080a;
 
-  /* Neutrals */
-  --color-body: #334155;
-  --color-muted: #64748b;
-  --color-surface: #ffffff;
-  --color-surface-subtle: #f6f9fa;
-  --color-surface-tint: #eef6f7;
-  --color-line: #e2e8f0;
-  --color-line-strong: #cbd5e1;
+  /* ---- Gold — the offer, and nothing else ------------------------------ */
+  --color-gold: #e3b341;
+  --color-gold-light: #f0c75e;
+  --color-gold-deep: #a97b16;
 
-  /* Feedback */
-  --color-danger: #dc2626;
-  --color-success: #047857;
+  /* ---- Surfaces, darkest to lightest ----------------------------------- */
+  /* Feature bands (hero, CTA, footer) drop BELOW the page so they still read
+     as distinct without a lighter block fighting the photography. */
+  --color-ink: #06080a;
+  --color-surface: #0a0c0d;
+  --color-surface-subtle: #0f1213;
+  --color-surface-raised: #14181a;
+  --color-surface-tint: #1a2124;
+
+  /* ---- Text ------------------------------------------------------------ */
+  --color-heading: #f4f8f9;
+  --color-body: #a8b6ba;
+  --color-muted: #7a8a8f;
+
+  /* ---- Lines ----------------------------------------------------------- */
+  --color-line: #1f2628;
+  --color-line-strong: #2e3a3d;
+
+  /* Feedback — lifted so they hold up on a dark ground */
+  --color-danger: #ff6b6b;
+  --color-success: #00e676;
 
   /* Fonts (wired up in layout.tsx via next/font) */
   --font-heading: var(--font-outfit), ui-sans-serif, system-ui, sans-serif;
@@ -60,7 +83,7 @@
 
 @theme inline {
   --color-background: var(--color-surface);
-  --color-foreground: var(--color-ink);
+  --color-foreground: var(--color-heading);
 }
 
 /* --- Base ---------------------------------------------------------------- */
@@ -83,6 +106,8 @@
     font-family: var(--font-sans);
     line-height: 1.6;
     text-rendering: optimizeLegibility;
+    /* Light text on a dark ground renders heavy; this thins it back. */
+    -webkit-font-smoothing: antialiased;
   }
 
   h1,
@@ -92,7 +117,7 @@
   h5,
   h6 {
     font-family: var(--font-heading);
-    color: var(--color-ink);
+    color: var(--color-heading);
     line-height: 1.15;
     text-wrap: balance;
     letter-spacing: -0.02em;
@@ -104,14 +129,19 @@
 
   /* One consistent, visible focus ring everywhere */
   :focus-visible {
-    outline: 3px solid var(--color-brand-blue);
+    outline: 3px solid var(--color-accent);
     outline-offset: 2px;
     border-radius: 2px;
   }
 
   ::selection {
-    background: var(--color-brand-deep);
-    color: #fff;
+    background: var(--color-accent);
+    color: var(--color-on-accent);
+  }
+
+  /* Native controls (select dropdowns, date pickers, scrollbars) follow. */
+  :root {
+    color-scheme: dark;
   }
 }
 
@@ -125,6 +155,84 @@
     var(--color-brand-teal) 67%,
     var(--color-brand-emerald) 100%
   );
+}
+
+/* The logo lockup only. Reads the frozen --color-logo-* values so the wordmark
+   is identical to the supplied artwork regardless of the theme. */
+@utility text-gradient-logo {
+  background-image: linear-gradient(
+    95deg,
+    var(--color-logo-blue) 0%,
+    var(--color-logo-cyan) 38%,
+    var(--color-logo-teal) 66%,
+    var(--color-logo-emerald) 100%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+/* Emerald edge-glow, as on the offer panel in the brochure. */
+@utility glow-accent {
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--color-accent) 45%, transparent),
+    0 0 28px -6px color-mix(in srgb, var(--color-accent) 55%, transparent),
+    0 0 70px -30px color-mix(in srgb, var(--color-accent) 80%, transparent);
+}
+
+@utility glow-gold {
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--color-gold) 40%, transparent),
+    0 0 30px -8px color-mix(in srgb, var(--color-gold) 45%, transparent);
+}
+
+/* Gold, panning like the brand gradient. Gold has a job on this site:
+   credentials and premium moments (guarantees, the offer, step numbers).
+   Emerald stays the colour of action. */
+@utility gradient-gold-animated {
+  background-image: linear-gradient(
+    90deg,
+    var(--color-gold-deep) 0%,
+    var(--color-gold) 25%,
+    var(--color-gold-light) 50%,
+    var(--color-gold) 75%,
+    var(--color-gold-deep) 100%
+  );
+  background-size: 200% 100%;
+  animation: gradient-pan 7s ease-in-out infinite alternate;
+}
+
+/* Metallic gold text with a slow travelling sheen. */
+@utility text-gradient-gold-animated {
+  background-image: linear-gradient(
+    100deg,
+    var(--color-gold-deep) 0%,
+    var(--color-gold) 20%,
+    var(--color-gold-light) 38%,
+    #fff6d8 48%,
+    var(--color-gold-light) 58%,
+    var(--color-gold) 78%,
+    var(--color-gold-deep) 100%
+  );
+  background-size: 250% 100%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  animation: gradient-pan 6s ease-in-out infinite alternate;
+}
+
+/* Metallic gold text, for the offer figure. */
+@utility text-gradient-gold {
+  background-image: linear-gradient(
+    170deg,
+    var(--color-gold-light) 0%,
+    var(--color-gold) 45%,
+    var(--color-gold-deep) 72%,
+    var(--color-gold-light) 100%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
 }
 
 /* The brand gradient, slowly panning back and forth. The stops run out to
@@ -145,6 +253,30 @@
   animation: gradient-pan 9s ease-in-out infinite alternate;
 }
 
+/* The signature headline.
+   The stops are weighted toward the green end so the phrase actually lands on
+   emerald rather than fading out in the blue-to-teal middle, which is what the
+   even spacing did. A brighter blue anchors the start against the dark ground. */
+@utility text-gradient-brand-animated {
+  background-image: linear-gradient(
+    92deg,
+    #1eb0f5 0%,
+    var(--color-brand-cyan) 14%,
+    var(--color-brand-teal) 28%,
+    var(--color-brand-emerald) 44%,
+    #3bff96 50%,
+    var(--color-brand-emerald) 56%,
+    var(--color-brand-teal) 72%,
+    var(--color-brand-cyan) 86%,
+    #1eb0f5 100%
+  );
+  background-size: 200% 100%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  animation: gradient-pan 9s ease-in-out infinite alternate;
+}
+
 /* Gradient headline text. Only for display sizes — the spectrum is not
    text-safe at body weight on white. */
 @utility text-gradient-brand {
@@ -160,7 +292,8 @@
   color: transparent;
 }
 
-/* 4px gradient rule used under section headings */
+/* 4px gradient rule used under section headings. Animated, so the accent is
+   quietly alive wherever it appears. */
 @utility rule-brand {
   display: block;
   width: 3.5rem;
@@ -168,9 +301,14 @@
   border-radius: 999px;
   background-image: linear-gradient(
     90deg,
-    var(--color-brand-blue),
-    var(--color-brand-emerald)
+    var(--color-brand-blue) 0%,
+    var(--color-brand-cyan) 25%,
+    var(--color-brand-emerald) 50%,
+    var(--color-brand-cyan) 75%,
+    var(--color-brand-blue) 100%
   );
+  background-size: 200% 100%;
+  animation: gradient-pan 8s ease-in-out infinite alternate;
 }
 
 @utility measure {
@@ -240,13 +378,96 @@
   }
 }
 
-/* Ambient drift on the decorative background glows. */
+/* --- Ambient background motion ------------------------------------------
+
+   Three orbs on different paths, speeds and phases. Because they never
+   line up, the backdrop never visibly repeats — it reads as slow weather
+   rather than a loop. Transform and opacity only, so each orb is a cached
+   GPU layer and the large blur is rasterised once instead of every frame.
+------------------------------------------------------------------------ */
+
 @keyframes drift {
   from {
     transform: translate3d(0, 0, 0) scale(1);
   }
   to {
     transform: translate3d(2%, -3%, 0) scale(1.08);
+  }
+}
+
+@keyframes drift-a {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  33% {
+    transform: translate3d(8%, -6%, 0) scale(1.18);
+  }
+  66% {
+    transform: translate3d(-5%, 7%, 0) scale(0.92);
+  }
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+@keyframes drift-b {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1.05);
+  }
+  40% {
+    transform: translate3d(-9%, 8%, 0) scale(0.9);
+  }
+  75% {
+    transform: translate3d(6%, 4%, 0) scale(1.2);
+  }
+  100% {
+    transform: translate3d(0, 0, 0) scale(1.05);
+  }
+}
+
+@keyframes drift-c {
+  0% {
+    transform: translate3d(0, 0, 0) scale(0.95);
+  }
+  50% {
+    transform: translate3d(5%, 9%, 0) scale(1.25);
+  }
+  100% {
+    transform: translate3d(0, 0, 0) scale(0.95);
+  }
+}
+
+/* Opacity breathes on its own cycle, deliberately co-prime with the drift
+   durations so the two never sync up. */
+@keyframes breathe {
+  0%,
+  100% {
+    opacity: var(--orb-min, 0.12);
+  }
+  50% {
+    opacity: var(--orb-max, 0.3);
+  }
+}
+
+@layer components {
+  .orb {
+    position: absolute;
+    border-radius: 9999px;
+    pointer-events: none;
+    filter: blur(64px);
+    will-change: transform, opacity;
+    animation:
+      drift-a var(--orb-drift, 26s) ease-in-out infinite,
+      breathe var(--orb-breathe, 17s) ease-in-out infinite;
+    animation-delay: var(--orb-delay, 0s);
+  }
+
+  .orb-b {
+    animation-name: drift-b, breathe;
+  }
+
+  .orb-c {
+    animation-name: drift-c, breathe;
   }
 }
 
@@ -271,8 +492,11 @@
     transform-origin: left;
   }
 
+  /* Draw in, then keep panning — both animations, not one replacing the other. */
   .reveal[data-visible="true"] .rule-brand {
-    animation: rule-draw 500ms var(--ease-out-soft) 160ms both;
+    animation:
+      rule-draw 500ms var(--ease-out-soft) 160ms both,
+      gradient-pan 8s ease-in-out 660ms infinite alternate;
   }
 
   .rise-in {
@@ -322,8 +546,21 @@
     transform: none;
   }
 
-  /* Hold the gradient still, mid-sweep, rather than parked at one end. */
-  .gradient-brand-animated {
+  /* Orbs hold still at their mid opacity — the colour wash stays, the motion
+     goes. Setting opacity:1 here would blow out the background. */
+  .orb {
+    animation: none;
+    transform: none;
+    opacity: var(--orb-max, 0.24);
+  }
+
+  /* Hold every panning gradient still, mid-sweep, rather than parked at one
+     end where it would read as a flat block of one colour. */
+  .gradient-brand-animated,
+  .gradient-gold-animated,
+  .text-gradient-brand-animated,
+  .text-gradient-gold-animated,
+  .rule-brand {
     animation: none;
     background-position: 50% 50%;
   }

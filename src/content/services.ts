@@ -11,6 +11,7 @@ import {
   Wrench,
   Zap,
   GlassWater,
+  Sparkles,
 } from "lucide-react";
 
 export type Faq = { q: string; a: string };
@@ -487,8 +488,8 @@ export const services: Service[] = [
       "Commercial painting",
     ],
     outro: "We focus on preparation, clean workmanship and a quality finish.",
-    image: "/gallery/bathroom-vanity-backlit-mirrors.jpeg",
-    imageAlt: "Freshly decorated interior with a feature wall and concealed lighting",
+    image: "/gallery/kitchen-island-walnut-quartz.jpeg",
+    imageAlt: "Freshly decorated interior with a clean paint finish and feature lighting",
     faqs: [
       {
         q: "How long does painting an apartment take?",
@@ -508,6 +509,52 @@ export const services: Service[] = [
       title: "Painting & Decorating Services in Dubai",
       description:
         "Interior and exterior painting for villas, apartments and commercial properties in Dubai. Proper preparation, feature walls and decorative finishes.",
+    },
+  },
+  {
+    slug: "cleaning-services",
+    name: "Cleaning Services",
+    headline: "Professional Cleaning Services in Dubai",
+    summary:
+      "Deep cleaning, move-in/move-out and post-renovation cleaning for homes and commercial premises.",
+    icon: Sparkles,
+    intro:
+      "We provide reliable, professional cleaning solutions for homes, villas, apartments, offices and commercial properties across Dubai.",
+    items: [
+      "Residential & villa cleaning",
+      "Office & commercial cleaning",
+      "Deep cleaning",
+      "Move-in / move-out cleaning",
+      "Post-renovation & handover cleaning",
+      "Kitchen & bathroom deep cleaning",
+      "AC & vent cleaning",
+      "Window & glass cleaning",
+      "Empty property cleaning",
+      "General maintenance & cleaning support",
+    ],
+    outro:
+      "From regular cleaning and deep cleaning to move-in/move-out and post-renovation cleaning, our experienced team delivers a thorough, dependable service with attention to detail. Whether you need a one-off deep clean or ongoing cleaning support, we tailor the service to your property.",
+    image: "/gallery/marble-bathroom-renovation.jpeg",
+    imageAlt: "Spotless marble bathroom following a professional deep clean",
+    faqs: [
+      {
+        q: "Do you clean after a renovation or handover?",
+        a: "Yes. Post-renovation and handover cleaning is one of the most common jobs we take on — construction dust settles everywhere, so it needs a different approach to a routine clean.",
+      },
+      {
+        q: "Can you handle move-in and move-out cleaning?",
+        a: "Yes, for both tenants and landlords. An empty property can be cleaned thoroughly and quickly, which matters when you are working to a handover date.",
+      },
+      {
+        q: "Do you offer one-off cleans or only regular contracts?",
+        a: "Both. A single deep clean is just as welcome as ongoing scheduled cleaning support, and we will quote for exactly what you need.",
+      },
+    ],
+    related: ["maintenance-repairs", "air-conditioning", "interior-fit-out-renovations"],
+    seo: {
+      title: "Professional Cleaning Services in Dubai",
+      description:
+        "Residential, villa and commercial cleaning in Dubai. Deep cleaning, move-in/move-out, post-renovation and handover cleaning, AC and vent cleaning, window cleaning.",
     },
   },
   {

@@ -25,11 +25,13 @@ export function LogoMark({
       focusable="false"
     >
       <defs>
+        {/* Frozen --color-logo-* values, never the themed brand tokens, so the
+            mark renders identically no matter what the palette does. */}
         <linearGradient id={gradientId} x1="4" y1="56" x2="60" y2="8" gradientUnits="userSpaceOnUse">
-          <stop offset="0%" stopColor="var(--color-brand-blue)" />
-          <stop offset="38%" stopColor="var(--color-brand-cyan)" />
-          <stop offset="70%" stopColor="var(--color-brand-teal)" />
-          <stop offset="100%" stopColor="var(--color-brand-emerald)" />
+          <stop offset="0%" stopColor="var(--color-logo-blue)" />
+          <stop offset="38%" stopColor="var(--color-logo-cyan)" />
+          <stop offset="70%" stopColor="var(--color-logo-teal)" />
+          <stop offset="100%" stopColor="var(--color-logo-emerald)" />
         </linearGradient>
       </defs>
       <g
@@ -52,11 +54,9 @@ export function LogoMark({
 
 export function Logo({
   className,
-  onDark = false,
   showTagline = true,
 }: {
   className?: string;
-  onDark?: boolean;
   showTagline?: boolean;
 }) {
   return (
@@ -67,20 +67,15 @@ export function Logo({
     >
       <LogoMark className="h-9 w-9 shrink-0 sm:h-10 sm:w-10" />
       <span className="flex flex-col leading-none">
-        <span
-          className={cn(
-            "font-heading text-xl font-bold tracking-[0.08em] uppercase sm:text-[1.35rem]",
-            onDark ? "text-white" : "text-ink",
-          )}
-        >
+        {/* Gradient wordmark, matching the supplied artwork. Driven by the
+            frozen --color-logo-* stops, so it is theme-proof. */}
+        <span className="text-gradient-logo font-heading text-xl font-bold tracking-[0.08em] uppercase sm:text-[1.35rem]">
           Distinct
         </span>
         {showTagline ? (
           <span
-            className={cn(
-              "font-heading mt-1 hidden text-[0.5625rem] font-medium tracking-[0.18em] whitespace-nowrap uppercase min-[340px]:block sm:text-[0.625rem] sm:tracking-[0.22em]",
-              onDark ? "text-brand-teal" : "text-brand-deep",
-            )}
+            className="font-heading mt-1 hidden text-[0.5625rem] font-medium tracking-[0.18em] whitespace-nowrap uppercase min-[340px]:block sm:text-[0.625rem] sm:tracking-[0.22em]"
+            style={{ color: "var(--color-logo-cyan)" }}
           >
             {site.tagline}
           </span>

@@ -7,16 +7,21 @@ type Size = "md" | "lg";
 const base =
   "inline-flex items-center justify-center gap-2 rounded-full font-medium " +
   "transition-[background-color,color,border-color,box-shadow,transform] duration-200 " +
-  "active:scale-[0.98] disabled:pointer-events-none disabled:opacity-50 cursor-pointer";
+  "active:scale-[0.98] disabled:pointer-events-none disabled:opacity-50 cursor-pointer " +
+  // A button label that wraps to two lines is always a layout bug, never a
+  // design choice — and shrink-0 stops flex rows compressing it to force one.
+  "whitespace-nowrap shrink-0";
 
 const variants: Record<Variant, string> = {
-  // 6.45:1 against white — safe for the 16px label
+  // Ink label, NOT white: white on emerald measures 1.67:1, ink gives 12.02:1.
   primary:
-    "bg-brand-deep text-white shadow-sm hover:bg-brand-deep-700 hover:shadow-md",
+    "bg-accent text-on-accent font-semibold shadow-[0_0_24px_-8px_var(--color-accent)] " +
+    "hover:bg-accent-soft hover:shadow-[0_0_32px_-6px_var(--color-accent)]",
   secondary:
-    "border border-line-strong bg-white text-ink hover:border-brand-deep hover:text-brand-deep",
-  ghost: "text-brand-deep hover:bg-surface-tint",
-  onDark: "bg-white text-ink hover:bg-surface-subtle",
+    "border border-line-strong bg-transparent text-heading hover:border-accent hover:text-accent",
+  ghost: "text-accent hover:bg-surface-tint",
+  // Highest-emphasis option for photographic bands, where the accent competes.
+  onDark: "bg-heading text-ink hover:bg-white",
 };
 
 const sizes: Record<Size, string> = {

@@ -38,7 +38,7 @@ export function LegalPage({
           <div className="mt-10 flex flex-col gap-10">
             {sections.map((section) => (
               <div key={section.heading}>
-                <h2 className="font-heading text-xl font-semibold text-ink">
+                <h2 className="font-heading text-xl font-semibold text-heading">
                   {section.heading}
                 </h2>
                 <div className="mt-4 flex flex-col gap-4">

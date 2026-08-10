@@ -59,7 +59,7 @@ function Field({
 
   return (
     <div className="flex flex-col gap-1.5">
-      <label htmlFor={id} className="text-sm font-medium text-ink">
+      <label htmlFor={id} className="text-sm font-medium text-heading">
         {label}
         {required ? (
           <span className="ml-1 text-danger" aria-hidden="true">
@@ -95,8 +95,8 @@ function Field({
 }
 
 const inputClass =
-  "min-h-12 w-full rounded-xl border border-line-strong bg-white px-4 text-base text-ink " +
-  "transition-colors placeholder:text-muted hover:border-line-strong focus:border-brand-deep " +
+  "min-h-12 w-full rounded-xl border border-line-strong bg-surface-raised px-4 text-base text-heading " +
+  "transition-colors placeholder:text-muted hover:border-line-strong focus:border-accent " +
   "focus:outline-none";
 
 export function ContactForm({ defaultService }: { defaultService?: string }) {
@@ -266,7 +266,7 @@ export function ContactForm({ defaultService }: { defaultService?: string }) {
             {propertyTypes.map((type) => (
               <label
                 key={type}
-                className="inline-flex min-h-11 cursor-pointer items-center rounded-full border border-line-strong px-4 text-sm text-body transition-colors select-none has-checked:border-brand-deep has-checked:bg-surface-tint has-checked:text-brand-deep has-checked:font-medium hover:border-brand-deep"
+                className="inline-flex min-h-11 cursor-pointer items-center rounded-full border border-line-strong px-4 text-sm text-body transition-colors select-none has-checked:border-accent has-checked:bg-surface-tint has-checked:text-accent has-checked:font-medium hover:border-accent"
               >
                 <input
                   type="radio"

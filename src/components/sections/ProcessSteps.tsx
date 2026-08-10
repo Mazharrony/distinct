@@ -18,10 +18,11 @@ export function ProcessSteps() {
             <Reveal as="li" key={step.title} delay={index * 40}>
               <div className="relative flex gap-5">
                 <div className="flex flex-col items-center">
-                  <span className="gradient-brand flex size-11 shrink-0 items-center justify-center rounded-xl">
+                  {/* Outlined circle, as on the brochure */}
+                  <span className="flex size-12 shrink-0 items-center justify-center rounded-full border border-accent/35 bg-accent/5">
                     <step.icon
-                      className="size-5 text-white"
-                      strokeWidth={1.75}
+                      className="size-5 text-accent"
+                      strokeWidth={1.6}
                       aria-hidden="true"
                     />
                   </span>
@@ -34,10 +35,11 @@ export function ProcessSteps() {
                 </div>
 
                 <div className="pb-2">
-                  <p className="font-heading text-2xs font-semibold tracking-[0.18em] text-muted uppercase tabular-nums">
+                  {/* Gold marks the sequence — credential tier, not action */}
+                  <p className="text-gradient-gold-animated font-heading text-2xs font-semibold tracking-[0.18em] uppercase tabular-nums">
                     Step {String(index + 1).padStart(2, "0")}
                   </p>
-                  <h3 className="font-heading mt-1 text-lg font-semibold text-ink">
+                  <h3 className="font-heading mt-1 text-lg font-semibold text-heading">
                     {step.title}
                   </h3>
                   <p className="mt-2 text-[0.9375rem] leading-relaxed text-body">

@@ -96,7 +96,7 @@ export default async function ServicePage({
           <div className="grid gap-12 lg:grid-cols-[1.15fr_1fr] lg:gap-16">
             <div>
               <Reveal>
-                <h2 className="font-heading text-2xl font-semibold text-ink sm:text-3xl">
+                <h2 className="font-heading text-2xl font-semibold text-heading sm:text-3xl">
                   What we cover
                 </h2>
                 <span className="rule-brand mt-4" aria-hidden="true" />
@@ -111,7 +111,7 @@ export default async function ServicePage({
                     className="flex items-start gap-3"
                   >
                     <Check
-                      className="mt-0.5 size-5 shrink-0 text-brand-deep"
+                      className="mt-0.5 size-5 shrink-0 text-accent"
                       strokeWidth={2.25}
                       aria-hidden="true"
                     />
@@ -147,9 +147,9 @@ export default async function ServicePage({
       {/* Quick contact strip */}
       <section className="bg-surface-subtle py-12">
         <Container>
-          <div className="flex flex-col items-start justify-between gap-6 rounded-2xl border border-line bg-white p-8 lg:flex-row lg:items-center">
+          <div className="flex flex-col items-start justify-between gap-6 rounded-2xl border border-line bg-surface-raised p-8 lg:flex-row lg:items-center">
             <div>
-              <h2 className="font-heading text-xl font-semibold text-ink">
+              <h2 className="font-heading text-xl font-semibold text-heading">
                 Need {service.name.toLowerCase()} in Dubai?
               </h2>
               <p className="mt-2 text-[0.9375rem] text-body">
@@ -159,7 +159,7 @@ export default async function ServicePage({
             </div>
             <div className="flex w-full shrink-0 flex-col gap-3 sm:w-auto sm:flex-row">
               <ButtonLink href={telLink} variant="secondary">
-                <Phone className="size-4 text-brand-deep" aria-hidden="true" />
+                <Phone className="size-4 text-accent" aria-hidden="true" />
                 {site.phone.display}
               </ButtonLink>
               <ButtonLink href="/contact">Get a quote</ButtonLink>
@@ -181,14 +181,14 @@ export default async function ServicePage({
           <Container>
             <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
               <Reveal>
-                <h2 className="font-heading text-2xl font-semibold text-ink sm:text-3xl">
+                <h2 className="font-heading text-2xl font-semibold text-heading sm:text-3xl">
                   Related services
                 </h2>
                 <span className="rule-brand mt-4" aria-hidden="true" />
               </Reveal>
               <Link
                 href="/services"
-                className="inline-flex items-center gap-1.5 text-sm font-medium text-brand-deep hover:underline"
+                className="inline-flex items-center gap-1.5 text-sm font-medium text-accent hover:underline"
               >
                 All services
                 <ArrowRight className="size-4" aria-hidden="true" />

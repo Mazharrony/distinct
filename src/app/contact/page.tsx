@@ -60,7 +60,7 @@ export default function ContactPage() {
             {/* Form */}
             <div>
               <Reveal>
-                <h2 className="font-heading text-2xl font-semibold text-ink sm:text-3xl">
+                <h2 className="font-heading text-2xl font-semibold text-heading sm:text-3xl">
                   Send us an enquiry
                 </h2>
                 <span className="rule-brand mt-4" aria-hidden="true" />
@@ -86,7 +86,7 @@ export default function ContactPage() {
                       {...(channel.external
                         ? { target: "_blank", rel: "noopener noreferrer" }
                         : {})}
-                      className="group flex items-center gap-4 rounded-2xl border border-line bg-white p-5 transition-[border-color,box-shadow] hover:border-brand-deep/40 hover:shadow-md"
+                      className="group flex items-center gap-4 rounded-2xl border border-line bg-surface-raised p-5 transition-[border-color,box-shadow] hover:border-accent/40 hover:shadow-md"
                     >
                       <span className="gradient-brand flex size-11 shrink-0 items-center justify-center rounded-xl">
                         <channel.icon
@@ -98,7 +98,7 @@ export default function ContactPage() {
                         <span className="block text-xs font-semibold tracking-[0.14em] text-muted uppercase">
                           {channel.label}
                         </span>
-                        <span className="mt-0.5 block truncate font-medium text-ink">
+                        <span className="mt-0.5 block truncate font-medium text-heading">
                           {channel.value}
                         </span>
                         <span className="mt-0.5 block text-xs text-muted">
@@ -114,12 +114,12 @@ export default function ContactPage() {
                 <ul className="flex flex-col gap-4 text-sm">
                   <li className="flex items-start gap-3">
                     <MapPin
-                      className="mt-0.5 size-5 shrink-0 text-brand-deep"
+                      className="mt-0.5 size-5 shrink-0 text-accent"
                       strokeWidth={1.75}
                       aria-hidden="true"
                     />
                     <span>
-                      <span className="block font-medium text-ink">
+                      <span className="block font-medium text-heading">
                         Where we work
                       </span>
                       <span className="text-body">
@@ -130,12 +130,12 @@ export default function ContactPage() {
                   </li>
                   <li className="flex items-start gap-3">
                     <Clock
-                      className="mt-0.5 size-5 shrink-0 text-brand-deep"
+                      className="mt-0.5 size-5 shrink-0 text-accent"
                       strokeWidth={1.75}
                       aria-hidden="true"
                     />
                     <span>
-                      <span className="block font-medium text-ink">Hours</span>
+                      <span className="block font-medium text-heading">Hours</span>
                       <span className="text-body">{site.hours}</span>
                     </span>
                   </li>

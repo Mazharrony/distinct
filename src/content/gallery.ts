@@ -14,12 +14,28 @@ export type GalleryImage = {
  */
 export const galleryImages: GalleryImage[] = [
   {
+    src: "/gallery/technician-plumbing-under-sink.jpeg",
+    alt: "Distinct Solutions technician in branded uniform carrying out plumbing work beneath a kitchen sink",
+    width: 1320,
+    height: 1024,
+    caption: "Our team on site in Dubai",
+    service: "plumbing",
+  },
+  {
     src: "/gallery/open-plan-kitchen-living-fit-out.jpeg",
     alt: "Open-plan apartment kitchen with walnut cabinetry, a stone waterfall island and the living area beyond",
     width: 1320,
     height: 862,
     caption: "Open-plan kitchen and living fit-out",
     service: "interior-fit-out-renovations",
+  },
+  {
+    src: "/gallery/handleless-kitchen-marble-island.jpeg",
+    alt: "Handleless white kitchen with a marble-effect waterfall island, breakfast bar seating and black track lighting",
+    width: 916,
+    height: 1600,
+    caption: "Handleless kitchen with marble waterfall island",
+    service: "kitchens-joinery",
   },
   {
     src: "/gallery/kitchen-island-fluted-lighting.jpeg",
@@ -51,14 +67,6 @@ export const galleryImages: GalleryImage[] = [
     width: 1218,
     height: 1600,
     caption: "Bespoke walnut kitchen joinery",
-    service: "kitchens-joinery",
-  },
-  {
-    src: "/gallery/bathroom-vanity-backlit-mirrors.jpeg",
-    alt: "Ensuite bathroom with a fluted dark timber vanity, twin backlit mirrors and a freestanding bath",
-    width: 1216,
-    height: 1600,
-    caption: "Ensuite with bespoke vanity and backlit mirrors",
     service: "kitchens-joinery",
   },
   {

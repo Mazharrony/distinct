@@ -1,37 +1,32 @@
 import type { MetadataRoute } from "next";
-import { services } from "@/content/services";
 import { site } from "@/content/site";
 
+/**
+ * Landing-page mode: only the home page is advertised. The interior routes
+ * still exist in the codebase but are unlinked and disallowed in robots.ts.
+ * Restoring them means listing them here again.
+ */
 export default function sitemap(): MetadataRoute.Sitemap {
   const lastModified = new Date();
 
-  const staticRoutes: {
-    path: string;
-    priority: number;
-    changeFrequency: MetadataRoute.Sitemap[number]["changeFrequency"];
-  }[] = [
-    { path: "", priority: 1, changeFrequency: "monthly" },
-    { path: "/services", priority: 0.9, changeFrequency: "monthly" },
-    { path: "/about", priority: 0.7, changeFrequency: "yearly" },
-    { path: "/gallery", priority: 0.7, changeFrequency: "monthly" },
-    { path: "/contact", priority: 0.9, changeFrequency: "yearly" },
-    { path: "/offer", priority: 0.6, changeFrequency: "monthly" },
-    { path: "/privacy", priority: 0.2, changeFrequency: "yearly" },
-    { path: "/terms", priority: 0.2, changeFrequency: "yearly" },
-  ];
-
   return [
-    ...staticRoutes.map((route) => ({
-      url: `${site.url}${route.path}`,
+    {
+      url: site.url,
       lastModified,
-      changeFrequency: route.changeFrequency,
-      priority: route.priority,
-    })),
-    ...services.map((service) => ({
-      url: `${site.url}/services/${service.slug}`,
+      changeFrequency: "weekly",
+      priority: 1,
+    },
+    {
+      url: `${site.url}/privacy`,
       lastModified,
-      changeFrequency: "monthly" as const,
-      priority: 0.8,
-    })),
+      changeFrequency: "yearly",
+      priority: 0.2,
+    },
+    {
+      url: `${site.url}/terms`,
+      lastModified,
+      changeFrequency: "yearly",
+      priority: 0.2,
+    },
   ];
 }

@@ -1,28 +1,30 @@
 import Image from "next/image";
-import Link from "next/link";
-import { ArrowRight, Check } from "lucide-react";
+import { Check } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { ButtonLink } from "@/components/ui/Button";
 import { Reveal } from "@/components/ui/Reveal";
 import { Hero } from "@/components/sections/Hero";
 import { ServiceCard } from "@/components/sections/ServiceCard";
 import { WhyChoose } from "@/components/sections/WhyChoose";
 import { ProcessSteps } from "@/components/sections/ProcessSteps";
 import { OfferBanner } from "@/components/sections/OfferBanner";
-import { CTASection } from "@/components/sections/CTASection";
+import { GalleryGrid } from "@/components/sections/GalleryGrid";
+import { ContactSection } from "@/components/sections/ContactSection";
+import { AudienceStrip } from "@/components/sections/AudienceStrip";
 import { services } from "@/content/services";
-import { featuredImages } from "@/content/gallery";
+import { galleryImages } from "@/content/gallery";
 import { blurMap } from "@/content/blur";
 import { commitments } from "@/content/site";
+
+const ABOUT_IMAGE = "/gallery/technician-plumbing-under-sink.jpeg";
 
 export default function HomePage() {
   return (
     <>
       <Hero />
 
-      {/* Intro */}
-      <section className="py-16 lg:py-24">
+      {/* About */}
+      <section id="about" className="scroll-mt-24 py-16 lg:py-24">
         <Container>
           <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
             <div>
@@ -44,44 +46,43 @@ export default function HomePage() {
               </p>
 
               <ul className="mt-8 grid gap-x-6 gap-y-3 sm:grid-cols-2">
-                {commitments.slice(0, 6).map((item) => (
-                  <li key={item} className="flex items-start gap-3">
+                {commitments.slice(0, 6).map((item, index) => (
+                  <Reveal
+                    as="li"
+                    key={item}
+                    delay={index * 40}
+                    className="flex items-start gap-3"
+                  >
                     <Check
-                      className="mt-0.5 size-5 shrink-0 text-brand-deep"
+                      className="mt-0.5 size-5 shrink-0 text-accent"
                       strokeWidth={2.25}
                       aria-hidden="true"
                     />
                     <span className="text-[0.9375rem] text-body">{item}</span>
-                  </li>
+                  </Reveal>
                 ))}
               </ul>
-
-              <ButtonLink href="/about" variant="secondary" className="mt-9">
-                More about us
-                <ArrowRight className="size-4" aria-hidden="true" />
-              </ButtonLink>
             </div>
 
             <Reveal className="relative">
-              <div className="relative aspect-4/5 overflow-hidden rounded-3xl sm:aspect-3/4 lg:aspect-4/5">
+              <div className="relative aspect-4/3 overflow-hidden rounded-3xl border border-line bg-surface-subtle">
                 <Image
-                  src="/gallery/bespoke-walnut-kitchen-joinery.jpeg"
-                  alt="Bespoke walnut kitchen joinery installed in a Dubai apartment"
+                  src={ABOUT_IMAGE}
+                  alt="A Distinct Solutions technician in branded uniform carrying out plumbing work in a Dubai property"
                   fill
                   sizes="(min-width: 1024px) 45vw, 100vw"
                   placeholder="blur"
-                  blurDataURL={blurMap["/gallery/bespoke-walnut-kitchen-joinery.jpeg"]}
+                  blurDataURL={blurMap[ABOUT_IMAGE]}
                   className="object-cover"
                 />
               </div>
-              {/* Offset accent bar, tucked behind the lower-left corner */}
               <div
                 aria-hidden="true"
-                className="gradient-brand absolute -bottom-4 -left-4 -z-10 h-24 w-1.5 rounded-full"
+                className="gradient-brand-animated absolute -bottom-4 -left-4 -z-10 h-24 w-1.5 rounded-full"
               />
               <div
                 aria-hidden="true"
-                className="gradient-brand absolute -bottom-4 -left-4 -z-10 h-1.5 w-24 rounded-full"
+                className="gradient-brand-animated absolute -bottom-4 -left-4 -z-10 h-1.5 w-24 rounded-full"
               />
             </Reveal>
           </div>
@@ -89,11 +90,19 @@ export default function HomePage() {
       </section>
 
       {/* Services */}
-      <section id="services" className="bg-surface-subtle py-16 lg:py-24">
+      <section
+        id="services"
+        className="scroll-mt-24 border-y border-line bg-surface-subtle py-16 lg:py-24"
+      >
         <Container>
           <SectionHeading
             eyebrow="Our services"
-            title="One company. Every solution."
+            title={
+              <>
+                One company.{" "}
+                <span className="text-accent">Every solution.</span>
+              </>
+            }
             description="Managing a property can involve multiple trades and contractors. We provide a single point of contact for a wide range of property requirements."
           />
 
@@ -104,67 +113,32 @@ export default function HomePage() {
               </Reveal>
             ))}
           </ul>
-
-          <div className="mt-10 flex justify-center">
-            <ButtonLink href="/services" variant="secondary" size="lg">
-              View all services
-              <ArrowRight className="size-4" aria-hidden="true" />
-            </ButtonLink>
-          </div>
         </Container>
       </section>
 
       <WhyChoose />
 
-      {/* Recent work */}
-      <section className="py-16 lg:py-24">
+      {/* Work */}
+      <section id="work" className="scroll-mt-24 py-16 lg:py-24">
         <Container>
-          <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
-            <SectionHeading
-              eyebrow="Our work"
-              title="Recent projects"
-              description="A selection of completed fit-out, joinery and installation work across Dubai."
-            />
-            <ButtonLink href="/gallery" variant="secondary" className="shrink-0">
-              View gallery
-              <ArrowRight className="size-4" aria-hidden="true" />
-            </ButtonLink>
+          <SectionHeading
+            eyebrow="Our work"
+            title="Recent projects"
+            description="A selection of completed fit-out, joinery, renovation and installation work across Dubai. Select any image to view it larger."
+          />
+          <div className="mt-12">
+            <GalleryGrid images={galleryImages} />
           </div>
-
-          <ul className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {featuredImages.map((image, index) => (
-              <Reveal as="li" key={image.src} delay={(index % 3) * 40}>
-                <Link
-                  href="/gallery"
-                  className="group relative block aspect-4/3 overflow-hidden rounded-2xl bg-surface-subtle"
-                >
-                  <Image
-                    src={image.src}
-                    alt={image.alt}
-                    fill
-                    sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-                    placeholder="blur"
-                    blurDataURL={blurMap[image.src]}
-                    className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
-                  />
-                  <span
-                    aria-hidden="true"
-                    className="absolute inset-0 flex items-end bg-gradient-to-t from-ink/85 via-ink/15 to-transparent p-5"
-                  >
-                    <span className="text-sm font-medium text-white">
-                      {image.caption}
-                    </span>
-                  </span>
-                </Link>
-              </Reveal>
-            ))}
-          </ul>
         </Container>
       </section>
 
-      <ProcessSteps />
+      <section id="process" className="scroll-mt-24">
+        <ProcessSteps />
+      </section>
+
+      <AudienceStrip />
       <OfferBanner />
-      <CTASection />
+      <ContactSection />
     </>
   );
 }

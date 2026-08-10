@@ -45,7 +45,7 @@ export default function OfferPage() {
               "Hello Distinct Solutions, I'd like to claim the 10% off labour new customer offer.",
             )}
             size="lg"
-            className="bg-brand-emerald text-ink hover:bg-brand-teal"
+            className="bg-brand-emerald text-heading hover:bg-brand-teal"
           >
             <WhatsAppIcon className="size-4" aria-hidden="true" />
             WhatsApp us
@@ -65,7 +65,7 @@ export default function OfferPage() {
                   aria-hidden="true"
                 />
               </span>
-              <h2 className="font-heading mt-6 text-2xl font-semibold text-ink sm:text-3xl">
+              <h2 className="font-heading mt-6 text-2xl font-semibold text-heading sm:text-3xl">
                 Applies across every service we offer
               </h2>
               <span className="rule-brand mt-4" aria-hidden="true" />
@@ -79,7 +79,7 @@ export default function OfferPage() {
                 {services.map((service) => (
                   <li key={service.slug} className="flex items-start gap-3">
                     <Check
-                      className="mt-0.5 size-4 shrink-0 text-brand-deep"
+                      className="mt-0.5 size-4 shrink-0 text-accent"
                       strokeWidth={2.5}
                       aria-hidden="true"
                     />
@@ -96,20 +96,20 @@ export default function OfferPage() {
                   <ArrowRight className="size-4" aria-hidden="true" />
                 </ButtonLink>
                 <ButtonLink href={telLink} variant="secondary" size="lg">
-                  <Phone className="size-4 text-brand-deep" aria-hidden="true" />
+                  <Phone className="size-4 text-accent" aria-hidden="true" />
                   {site.phone.display}
                 </ButtonLink>
               </div>
             </div>
 
             <div className="rounded-3xl border border-line bg-surface-subtle p-8">
-              <h2 className="font-heading text-xl font-semibold text-ink">
+              <h2 className="font-heading text-xl font-semibold text-heading">
                 Terms & conditions
               </h2>
               <ol className="mt-6 flex flex-col gap-4">
                 {terms.map((term, index) => (
                   <li key={term} className="flex gap-4">
-                    <span className="font-heading text-sm font-semibold text-brand-deep tabular-nums">
+                    <span className="font-heading text-sm font-semibold text-accent tabular-nums">
                       {String(index + 1).padStart(2, "0")}
                     </span>
                     <span className="text-[0.9375rem] leading-relaxed text-body">

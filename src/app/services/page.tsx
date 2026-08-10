@@ -52,13 +52,13 @@ export default function ServicesPage() {
           <ul className="mt-12 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-3">
             {audiences.map((audience, index) => (
               <Reveal as="li" key={audience.label} delay={(index % 3) * 40}>
-                <div className="flex h-full items-center gap-3 rounded-xl border border-line bg-white px-5 py-4">
+                <div className="flex h-full items-center gap-3 rounded-xl border border-line bg-surface-raised px-5 py-4">
                   <audience.icon
-                    className="size-5 shrink-0 text-brand-deep"
+                    className="size-5 shrink-0 text-accent"
                     strokeWidth={1.75}
                     aria-hidden="true"
                   />
-                  <span className="text-[0.9375rem] font-medium text-ink">
+                  <span className="text-[0.9375rem] font-medium text-heading">
                     {audience.label}
                   </span>
                 </div>

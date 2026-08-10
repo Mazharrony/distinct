@@ -66,12 +66,18 @@ export const mailLink = `mailto:${site.email}`;
 /* Navigation                                                                  */
 /* -------------------------------------------------------------------------- */
 
+/**
+ * Single-page navigation. The interior routes still exist in the codebase but
+ * are not linked or indexed while the site runs as a landing page — see
+ * robots.ts and sitemap.ts. Restoring them is a matter of pointing these
+ * hrefs back at the routes.
+ */
 export const mainNav = [
-  { label: "Home", href: "/" },
-  { label: "About", href: "/about" },
-  { label: "Services", href: "/services" },
-  { label: "Gallery", href: "/gallery" },
-  { label: "Contact", href: "/contact" },
+  { label: "Services", href: "#services", id: "services" },
+  { label: "About", href: "#about", id: "about" },
+  { label: "Our Work", href: "#work", id: "work" },
+  { label: "Process", href: "#process", id: "process" },
+  { label: "Contact", href: "#contact", id: "contact" },
 ] as const;
 
 /* -------------------------------------------------------------------------- */

@@ -24,7 +24,7 @@ export default function ThankYouPage() {
             />
           </span>
 
-          <h1 className="mt-8 text-3xl font-bold text-ink sm:text-4xl">
+          <h1 className="mt-8 text-3xl font-bold text-heading sm:text-4xl">
             Thank you — your enquiry has been received
           </h1>
           <span className="rule-brand mt-6" aria-hidden="true" />
@@ -44,7 +44,7 @@ export default function ThankYouPage() {
               {site.phone.display}
             </ButtonLink>
             <ButtonLink href={whatsappLink()} variant="secondary" size="lg">
-              <WhatsAppIcon className="size-4 text-brand-deep" aria-hidden="true" />
+              <WhatsAppIcon className="size-4 text-accent" aria-hidden="true" />
               WhatsApp us
             </ButtonLink>
           </div>

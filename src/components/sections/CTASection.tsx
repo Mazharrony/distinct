@@ -1,6 +1,7 @@
 import { Phone } from "lucide-react";
 import { WhatsAppIcon } from "@/components/ui/icons/WhatsAppIcon";
 import { Container } from "@/components/ui/Container";
+import { AmbientBackdrop } from "@/components/ui/AmbientBackdrop";
 import { ButtonLink } from "@/components/ui/Button";
 import { Eyebrow } from "@/components/ui/SectionHeading";
 import { site, telLink, whatsappLink } from "@/content/site";
@@ -16,23 +17,7 @@ export function CTASection({
 }) {
   return (
     <section className="relative overflow-hidden bg-ink">
-      {/* Brand glow — decorative only, sits behind the text */}
-      <div
-        aria-hidden="true"
-        className="ambient-drift pointer-events-none absolute -top-32 -right-24 size-[28rem] rounded-full opacity-25 blur-3xl"
-        style={{
-          background:
-            "radial-gradient(circle, var(--color-brand-teal), transparent 65%)",
-        }}
-      />
-      <div
-        aria-hidden="true"
-        className="ambient-drift pointer-events-none absolute -bottom-40 -left-32 size-[26rem] rounded-full opacity-20 blur-3xl"
-        style={{
-          background:
-            "radial-gradient(circle, var(--color-brand-blue), transparent 65%)",
-        }}
-      />
+  <AmbientBackdrop preset="spread" />
 
       <Container className="relative py-16 lg:py-24">
         <div className="flex flex-col items-center gap-6 text-center">
@@ -53,13 +38,13 @@ export function CTASection({
             <ButtonLink
               href={whatsappLink()}
               size="lg"
-              className="bg-brand-emerald text-ink hover:bg-brand-teal"
+              className="bg-brand-emerald text-heading hover:bg-brand-teal"
             >
               <WhatsAppIcon className="size-4" aria-hidden="true" />
               WhatsApp us
             </ButtonLink>
             <ButtonLink
-              href="/contact"
+              href="#contact"
               size="lg"
               className="border border-white/25 bg-transparent text-white hover:bg-white/10"
             >
