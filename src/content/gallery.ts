@@ -117,6 +117,46 @@ export const galleryImages: GalleryImage[] = [
     caption: "SPC flooring installation",
     service: "flooring",
   },
+  {
+    src: "/gallery/staircase-spc-flooring-installation.jpeg",
+    alt: "Staircase clad in wood-effect SPC flooring with matching landing and a slatted metal balustrade",
+    width: 1226,
+    height: 1600,
+    caption: "Staircase flooring installation",
+    service: "flooring",
+  },
+  {
+    src: "/gallery/staircase-flooring-landing.jpeg",
+    alt: "Wood-effect flooring laid across staircase treads and the landing below",
+    width: 1218,
+    height: 1600,
+    caption: "Staircase and landing flooring",
+    service: "flooring",
+  },
+  {
+    src: "/gallery/reeded-island-kitchen-quartz.jpeg",
+    alt: "Kitchen island faced in reeded timber with a white quartz worktop and integrated appliances behind",
+    width: 1236,
+    height: 1600,
+    caption: "Reeded island kitchen with quartz worktop",
+    service: "kitchens-joinery",
+  },
+  {
+    src: "/gallery/herringbone-flooring-hallway-panelling.jpeg",
+    alt: "Hallway with herringbone wood-effect flooring and a navy paint-finished panelled wall",
+    width: 1320,
+    height: 1131,
+    caption: "Herringbone flooring with panelled wall",
+    service: "flooring",
+  },
+  {
+    src: "/gallery/herringbone-lvt-hallway.jpeg",
+    alt: "Herringbone LVT flooring laid through a hallway with painted skirting and doors",
+    width: 1320,
+    height: 1146,
+    caption: "Herringbone LVT hallway",
+    service: "flooring",
+  },
 ];
 
 /** Featured selection for the home page preview. */

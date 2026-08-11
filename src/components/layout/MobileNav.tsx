@@ -13,6 +13,24 @@ export function MobileNav() {
   const [open, setOpen] = useState(false);
   const panelRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
+  /** Set when the drawer is closing because an in-page link was tapped. */
+  const navTarget = useRef<string | null>(null);
+
+  /**
+   * In-page links inside the drawer cannot navigate on their own: the body is
+   * pinned while the drawer is open, so the browser's jump goes nowhere, and
+   * the scroll restore below would then pull the reader back anyway. Record
+   * the destination instead and let the unlock handle it.
+   *
+   * Reads the href off the element rather than closing over it, so this stays
+   * a plain event handler — a curried factory reads as render-phase code and
+   * is not allowed to touch a ref.
+   */
+  const handleNavClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
+    event.preventDefault();
+    navTarget.current = event.currentTarget.getAttribute("href");
+    setOpen(false);
+  };
 
   // Lock scroll, trap focus, restore focus on close.
   useEffect(() => {
@@ -73,9 +91,21 @@ export function MobileNav() {
       delete document.body.dataset.drawerOpen;
 
       // While pinned, the body is out of flow and the document collapses, so
-      // an immediate scrollTo clamps against the short height and lands ~400px
-      // above where the reader was. Waiting a frame lets layout recover first.
+      // an immediate scroll clamps against the short height. Waiting a frame
+      // lets layout recover first.
+      const target = navTarget.current;
+      navTarget.current = null;
+
       requestAnimationFrame(() => {
+        const section = target ? document.querySelector(target) : null;
+        if (section) {
+          // Honours the sections' scroll-mt, so the sticky header does not
+          // cover the heading.
+          section.scrollIntoView({ behavior: "smooth", block: "start" });
+          history.replaceState(null, "", target);
+          return;
+        }
+        // Closed without navigating — put the reader back where they were.
         window.scrollTo({ top: scrollY, behavior: "instant" });
       });
 
@@ -144,7 +174,7 @@ export function MobileNav() {
                   <li key={item.href}>
                     <a
                       href={item.href}
-                      onClick={() => setOpen(false)}
+                      onClick={handleNavClick}
                       className="flex min-h-12 items-center justify-between rounded-xl px-4 text-lg font-medium text-heading transition-colors hover:bg-surface-tint hover:text-accent"
                     >
                       {item.label}
@@ -180,7 +210,7 @@ export function MobileNav() {
                 href="#contact"
                 size="lg"
                 className="w-full"
-                onClick={() => setOpen(false)}
+                onClick={handleNavClick}
               >
                 Get a free quote
               </ButtonLink>
