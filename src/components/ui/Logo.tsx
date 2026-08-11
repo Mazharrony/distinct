@@ -1,53 +1,186 @@
 import Link from "next/link";
+import { useId } from "react";
 import { cn } from "@/lib/cn";
 import { site } from "@/content/site";
 
 /**
- * The "D" mark, drawn as concentric D strokes in the brand gradient.
+ * The supplied logo artwork, inlined verbatim from public/logo.svg.
  *
- * Rebuilt as vector rather than using the supplied PNG, which is a lighting
- * mockup on a grey background — this stays crisp at any size, carries no
- * background, and costs a fraction of the bytes.
+ * Generated from that file — geometry and gradient stops are the originals,
+ * nothing redrawn or recoloured. This is the dark-surface export: the
+ * "Recognisably Different" tagline is white.
+ *
+ * The source canvas is 2000x2000 with the lockup in a band across the middle,
+ * so the viewBox is cropped to the measured content bounds. Left uncropped the
+ * artwork renders at a fraction of its size inside all that empty space.
+ *
+ * Gradient ids are namespaced per instance with useId — two copies on a page
+ * would otherwise define identical ids and both take whichever won.
  */
-export function LogoMark({
-  className,
-  gradientId = "distinct-mark",
-}: {
-  className?: string;
-  gradientId?: string;
-}) {
+
+/** The "D" monogram alone. 342.7 x 348.9. */
+export function LogoMark({ className }: { className?: string }) {
+  const uid = useId().replace(/:/g, "");
   return (
     <svg
-      viewBox="0 0 64 64"
-      fill="none"
+      viewBox="180.2 788.4 342.7 348.9"
       className={className}
       aria-hidden="true"
       focusable="false"
     >
       <defs>
-        {/* Frozen --color-logo-* values, never the themed brand tokens, so the
-            mark renders identically no matter what the palette does. */}
-        <linearGradient id={gradientId} x1="4" y1="56" x2="60" y2="8" gradientUnits="userSpaceOnUse">
-          <stop offset="0%" stopColor="var(--color-logo-blue)" />
-          <stop offset="38%" stopColor="var(--color-logo-cyan)" />
-          <stop offset="70%" stopColor="var(--color-logo-teal)" />
-          <stop offset="100%" stopColor="var(--color-logo-emerald)" />
+        <linearGradient
+          id={`${uid}-linear-gradient`}
+          x1="286.67" y1="1159.04" x2="391.75" y2="792.56"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop offset="0" stopColor="#005aa4" />
+          <stop offset="1" stopColor="#00a24e" />
         </linearGradient>
       </defs>
-      <g
-        stroke={`url(#${gradientId})`}
-        strokeWidth="4.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        {/* Outer D */}
-        <path d="M10 6v52h10a26 26 0 0 0 0-52H10Z" />
-        {/* Middle D */}
-        <path d="M20 17v30h1a15 15 0 0 0 0-30h-1Z" />
-        {/* Inner stem — the stepped detail on the left of the mark */}
-        <path d="M10 26h7" />
-        <path d="M10 38h7" />
-      </g>
+      <path d="M279.13,1045.89c4.65-.11-.6,14.98,8.89,14.95l65.78-.19c36.05-.1,69.05-23.62,81.93-57.15,13.46-35.05,7.22-74.29-17.32-102.1-17.64-20-41.6-33.05-68.29-33.16l-60.81-.24c-4.16-.02-8.31,3.86-8.31,8.46l.09,120.78c0,4.4,3.88,8.8,8.23,8.78l64.05-.29c17.89-.08,31.26-13.63,35.18-30.32,5.9-25.12-10.5-49.62-36.92-52.29l-51.08-.92c-4.12-5.89-4.09-20.41,1.28-24.04,17.45,0,34.21-.95,51.36.39,37.59,2.93,63.94,35.2,61.11,72.24-2.51,32.98-28.18,59.72-62,59.8l-117.54.28c-5.38.01-9.42,4.03-9.42,9.35l.04,61.51c0,7.58,6.31,10.11,12.88,10.1l122.62-.33c39.48-.11,75.1-17.74,100.85-47.21,56.56-64.74,43.52-166.31-23.99-219.98-23.43-18.63-51.49-30.21-81.67-30.31l-120.09-.41c-5.5-.02-10.56,3.17-10.57,9.35l-.08,65.65h-23.9s-.04-87.85-.04-87.85c0-6.38,6-12.41,12.61-12.37l153.01.92c43.79,1.95,83.17,25.64,111.14,58.06,49.75,57.68,59.51,140.41,21.99,207.05-26.99,47.93-77.42,80.74-133.04,82.37l-155.19.46c-7.26.02-10.54-7.62-10.54-13.23l.04-107c0-5.45,6.34-10.72,11.41-10.74l32.71-.08c7.02-.02,11.55-4.06,11.51-11.19l-.28-53.31c-.03-5.94-4.05-10.65-10.16-10.63l-34.82.12c-4.58.02-7.71,5.85-8.2,9.17-.67,4.47.16,10.74,5.22,12.61,6.85,2.52,16.52-.96,20.46,3.49,1.68,1.9,2.01,6.57,2.09,9.46.16,5.47-2.06,9.83-7.75,9.87l-29.24.17c-7.14.04-14.16-4.74-14.14-12.76l.11-40.44c.02-7.24,7.18-13.73,14.13-13.77l53.52-.27c3.29-.02,8.72-3.39,8.72-6.92v-42.78c.01-7.75,4.29-15.64,13.27-15.61l84.97.22c26.42.07,50.64,11.67,70.47,28.84,38.86,33.64,52.71,88.01,35.66,136.58-15.15,43.15-53.92,73.3-100.27,75.98l-94.14.76c-6.2.05-9.95-7.87-9.9-12.83l.22-26.53,22.18-.5Z" fill={`url(#${uid}-linear-gradient)`} />
+    </svg>
+  );
+}
+
+/** Full lockup: monogram, DISTINCT, and the tagline. Aspect ratio 4.575. */
+export function LogoLockup({ className }: { className?: string }) {
+  const uid = useId().replace(/:/g, "");
+  return (
+    <svg
+      viewBox="180.2 788.4 1596 348.9"
+      className={className}
+      role="img"
+      aria-label={site.shortName}
+    >
+      <defs>
+        <linearGradient
+          id={`${uid}-linear-gradient`}
+          x1="286.67" y1="1159.04" x2="391.75" y2="792.56"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop offset="0" stopColor="#005aa4" />
+          <stop offset="1" stopColor="#00a24e" />
+        </linearGradient>
+        <linearGradient
+          id={`${uid}-linear-gradient1`}
+          x1="1289.22" y1="1034.21" x2="1381.65" y2="836"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop offset="0" stopColor="#005aa4" />
+          <stop offset=".16" stopColor="#006991" />
+          <stop offset=".52" stopColor="#00886c" />
+          <stop offset=".81" stopColor="#009b56" />
+          <stop offset="1" stopColor="#00a24e" />
+        </linearGradient>
+        <linearGradient
+          id={`${uid}-linear-gradient2`}
+          x1="609.4" y1="1031.16" x2="691.83" y2="854.39"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop offset="0" stopColor="#005aa4" />
+          <stop offset=".16" stopColor="#006991" />
+          <stop offset=".52" stopColor="#00886c" />
+          <stop offset=".81" stopColor="#009b56" />
+          <stop offset="1" stopColor="#00a24e" />
+        </linearGradient>
+        <linearGradient
+          id={`${uid}-linear-gradient3`}
+          x1="883.25" y1="1020.42" x2="961.74" y2="852.1"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop offset="0" stopColor="#005aa4" />
+          <stop offset=".16" stopColor="#006991" />
+          <stop offset=".52" stopColor="#00886c" />
+          <stop offset=".81" stopColor="#009b56" />
+          <stop offset="1" stopColor="#00a24e" />
+        </linearGradient>
+        <linearGradient
+          id={`${uid}-linear-gradient4`}
+          x1="1496.32" y1="1015.35" x2="1571" y2="855.19"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop offset="0" stopColor="#005aa4" />
+          <stop offset=".16" stopColor="#006991" />
+          <stop offset=".52" stopColor="#00886c" />
+          <stop offset=".81" stopColor="#009b56" />
+          <stop offset="1" stopColor="#00a24e" />
+        </linearGradient>
+        <linearGradient
+          id={`${uid}-linear-gradient5`}
+          x1="1641.18" y1="1001.89" x2="1722.89" y2="826.66"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop offset="0" stopColor="#005aa4" />
+          <stop offset=".16" stopColor="#006991" />
+          <stop offset=".52" stopColor="#00886c" />
+          <stop offset=".81" stopColor="#009b56" />
+          <stop offset="1" stopColor="#00a24e" />
+        </linearGradient>
+        <linearGradient
+          id={`${uid}-linear-gradient6`}
+          x1="1021.41" y1="1001.7" x2="1102.67" y2="827.42"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop offset="0" stopColor="#005aa4" />
+          <stop offset=".16" stopColor="#006991" />
+          <stop offset=".52" stopColor="#00886c" />
+          <stop offset=".81" stopColor="#009b56" />
+          <stop offset="1" stopColor="#00a24e" />
+        </linearGradient>
+        <linearGradient
+          id={`${uid}-linear-gradient7`}
+          x1="1163.57" y1="1012.09" x2="1235.37" y2="858.11"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop offset="0" stopColor="#005aa4" />
+          <stop offset=".16" stopColor="#006991" />
+          <stop offset=".52" stopColor="#00886c" />
+          <stop offset=".81" stopColor="#009b56" />
+          <stop offset="1" stopColor="#00a24e" />
+        </linearGradient>
+        <linearGradient
+          id={`${uid}-linear-gradient8`}
+          x1="767.15" y1="1012.1" x2="838.91" y2="858.2"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop offset="0" stopColor="#005aa4" />
+          <stop offset=".16" stopColor="#006991" />
+          <stop offset=".52" stopColor="#00886c" />
+          <stop offset=".81" stopColor="#009b56" />
+          <stop offset="1" stopColor="#00a24e" />
+        </linearGradient>
+      </defs>
+      <path d="M279.13,1045.89c4.65-.11-.6,14.98,8.89,14.95l65.78-.19c36.05-.1,69.05-23.62,81.93-57.15,13.46-35.05,7.22-74.29-17.32-102.1-17.64-20-41.6-33.05-68.29-33.16l-60.81-.24c-4.16-.02-8.31,3.86-8.31,8.46l.09,120.78c0,4.4,3.88,8.8,8.23,8.78l64.05-.29c17.89-.08,31.26-13.63,35.18-30.32,5.9-25.12-10.5-49.62-36.92-52.29l-51.08-.92c-4.12-5.89-4.09-20.41,1.28-24.04,17.45,0,34.21-.95,51.36.39,37.59,2.93,63.94,35.2,61.11,72.24-2.51,32.98-28.18,59.72-62,59.8l-117.54.28c-5.38.01-9.42,4.03-9.42,9.35l.04,61.51c0,7.58,6.31,10.11,12.88,10.1l122.62-.33c39.48-.11,75.1-17.74,100.85-47.21,56.56-64.74,43.52-166.31-23.99-219.98-23.43-18.63-51.49-30.21-81.67-30.31l-120.09-.41c-5.5-.02-10.56,3.17-10.57,9.35l-.08,65.65h-23.9s-.04-87.85-.04-87.85c0-6.38,6-12.41,12.61-12.37l153.01.92c43.79,1.95,83.17,25.64,111.14,58.06,49.75,57.68,59.51,140.41,21.99,207.05-26.99,47.93-77.42,80.74-133.04,82.37l-155.19.46c-7.26.02-10.54-7.62-10.54-13.23l.04-107c0-5.45,6.34-10.72,11.41-10.74l32.71-.08c7.02-.02,11.55-4.06,11.51-11.19l-.28-53.31c-.03-5.94-4.05-10.65-10.16-10.63l-34.82.12c-4.58.02-7.71,5.85-8.2,9.17-.67,4.47.16,10.74,5.22,12.61,6.85,2.52,16.52-.96,20.46,3.49,1.68,1.9,2.01,6.57,2.09,9.46.16,5.47-2.06,9.83-7.75,9.87l-29.24.17c-7.14.04-14.16-4.74-14.14-12.76l.11-40.44c.02-7.24,7.18-13.73,14.13-13.77l53.52-.27c3.29-.02,8.72-3.39,8.72-6.92v-42.78c.01-7.75,4.29-15.64,13.27-15.61l84.97.22c26.42.07,50.64,11.67,70.47,28.84,38.86,33.64,52.71,88.01,35.66,136.58-15.15,43.15-53.92,73.3-100.27,75.98l-94.14.76c-6.2.05-9.95-7.87-9.9-12.83l.22-26.53,22.18-.5Z" fill={`url(#${uid}-linear-gradient)`} />
+      <polygon points="1415.84 1018.22 1377.99 1018.21 1299.46 927.62 1299.49 1018.25 1255.01 1018.26 1255.04 851.96 1292.32 852 1371.76 944.65 1371.89 852.02 1415.85 851.95 1415.84 1018.22" fill={`url(#${uid}-linear-gradient1)`} />
+      <path d="M742.43,890.67c23.81,37.47,15.69,90.29-23.7,113.7-16.26,8.82-33.89,13.79-52.9,13.81l-84.05.09.06-166.22,82.26.24c16.5.05,31.36,4.55,46.37,10.79,12.63,6.65,24.13,15.27,31.96,27.59ZM709.26,939.89c.58-13.93-2.92-26.13-11.66-36.09-9.09-8.41-20.7-14.52-33.53-14.64l-35.84-.32-.02,93.39,31.72.21c25.95.17,48.16-14.82,49.32-42.55Z" fill={`url(#${uid}-linear-gradient2)`} />
+      <path d="M903.37,1021.06c-20.64-2.09-38.59-7.6-56.57-18.58l15.34-33.68c20.18,12.74,41.49,17.65,64.21,17.31,11.37-.89,23-4.35,23.39-13.56.37-8.88-11.47-12.87-22.18-15.39l-39.51-9.27c-10.43-2.45-20.66-7.8-27.91-15.77-16.24-17.87-13.9-44.95,3-61.77,11.12-11.06,25.19-15.88,40.7-19.1,28.14-4.06,57.04-.02,83.12,12.64l-14.91,33.94c-21.02-11.34-43.78-14.87-65.81-10.34-4.84,2.42-8.86,5.78-9.56,10-4.36,26.23,74.5,12.8,93.84,51.31,8.5,16.94,5.65,38.58-7.4,52.42-17.79,18.88-52.58,22.78-79.75,19.85Z" fill={`url(#${uid}-linear-gradient3)`} />
+      <path d="M1497.99,966.11c18.06,24.38,61.42,24.53,81.72-1.98l28.61,27.52c-21.39,24.24-52.53,32.55-84.02,29.71-56.11-5.05-91.8-49.64-81.58-102.13,4.71-24.21,21.63-46.88,46-58.94,37.41-18.51,89.56-13.74,118.11,19.67l-27.28,27.32c-13.77-17.48-35.48-24.03-56.4-18.41-18.66,5.01-31.36,20.09-33.89,39.17-1.79,13.5.58,27.05,8.74,38.07Z" fill={`url(#${uid}-linear-gradient4)`} />
+      <polygon points="1721.5 1018.16 1676.31 1018.27 1676.35 888.88 1623.38 888.78 1623.39 851.52 1776.05 851.45 1776.21 888.84 1721.49 888.8 1721.5 1018.16" fill={`url(#${uid}-linear-gradient5)`} />
+      <polygon points="1101.43 1017.85 1056.97 1018.28 1056.96 888.84 1003.63 888.75 1003.68 851.95 1155.22 851.92 1155.21 888.82 1101.31 888.81 1101.43 1017.85" fill={`url(#${uid}-linear-gradient6)`} />
+      <rect x="1116.24" y="912.58" width="166.45" height="45.05" transform="translate(264.2216 2134.4612) rotate(-89.9932)" fill={`url(#${uid}-linear-gradient7)`} />
+      <rect x="780.56" y="851.94" width="44.95" height="166.41" fill={`url(#${uid}-linear-gradient8)`} />
+      <path d="M991.29,1064.48c4.05,2.62,6.58,6.46,5.86,11-.65,4.08-4.94,8.94-9.93,9.02l-23.47.36.07-39.33,21.85.22c3.55.04,8.01,3.85,8.97,6.56,1.31,3.71.72,8.57-3.36,12.17ZM985.08,1061.77c1.99-.06,4.65-4.56,4.22-6.41-.37-1.61-3.29-4.27-5.11-4.3l-14.22-.27.16,11.47,14.95-.48ZM984.48,1079.23c3.27,0,6.01-2.45,6.17-5.75.12-2.37-2.92-5.84-5.71-5.89l-14.8-.26.03,11.93,14.31-.04Z" fill="#fff" />
+      <path d="M1405.45,1083.67c0,2.13-5.8.75-6.98-.76l-20.38-26.11-.32,28.06-6.17-.09.22-38.84c1.49-.55,5.34-.01,6.34,1.22l20.93,26.02.26-25.79c.02-1.86,5.11-2.32,6.28-1.07l-.16,37.36Z" fill="#fff" />
+      <path d="M844.07,1083.73c-.02,2.45-6.22.22-7.52-1.45l-19.82-25.49-.33,27.85-6.12.12.12-38.83c2.58-.59,5.77.75,7.27,2.59l20.24,24.87.33-27.64,6.12.29-.3,37.7Z" fill="#fff" />
+      <path d="M607.18,1084.37l-8.55-12.4-10.53-.42-.1,12.66-6.01.66-.06-39.38,19.54.31c6.62.1,11.47,5.51,12.02,10.81.67,6.43-2.77,12.52-9.26,14.16l10.69,13.81c-.85.28-6.15.46-7.75-.2ZM600.41,1065.83c4.49-.06,7.25-4.04,7.05-8.09-.16-3.23-3.19-6.6-7.11-6.65l-12.25-.13-.04,15.03,12.34-.16Z" fill="#fff" />
+      <path d="M1311.83,1083.44l-8.42-11.54-10.22-.28.06,12.9-6.42.28v-38.93c7.93-.37,16.14-.75,23.65.78,5.97,1.22,8.24,7.37,8.06,12.18-.2,5.29-3.03,9.64-8.9,11.86l9.97,13.84c-.98.6-6.5.66-7.78-1.1ZM1307.05,1065.55c3.78-.2,5.64-6.08,5.09-8.95-.65-3.38-4.36-5.62-8.26-5.62l-10.8.02.29,15.26,13.69-.71Z" fill="#fff" />
+      <path d="M1137.31,1066.13c-.6,10.28-7.66,18.18-17.56,18.32l-19.67.28.09-39.05,20,.3c10.62.16,17.78,9.35,17.14,20.15ZM1124.94,1076.9c4.76-2.47,6.35-8.53,6.14-13.03-.17-3.53-2.66-9.26-6.55-10.89-5.64-2.37-11.46-2.18-18.13-2.07l.15,28.06c6.42.38,12.75.87,18.4-2.07Z" fill="#fff" />
+      <path d="M732.07,1085.04c-12.92,1.32-22.75-7.27-23.29-19.05-.53-11.66,8.91-21.38,21.5-20.99,11.09.34,19.47,8.54,20.14,18.79.7,10.71-6.46,20.03-18.35,21.24ZM744.44,1065.09c0-8.15-6.6-14.75-14.75-14.75s-14.75,6.6-14.75,14.75,6.6,14.75,14.75,14.75,14.75-6.6,14.75-14.75Z" fill="#fff" />
+      <polygon points="1357.03 1067.56 1337.2 1067.73 1337.19 1079.26 1359.52 1079.19 1359.49 1084.89 1330.85 1084.8 1330.9 1045.62 1358.83 1045.6 1359.17 1050.76 1337.21 1051.01 1337.24 1062.04 1357.06 1062.06 1357.03 1067.56" fill="#fff" />
+      <polygon points="1271.98 1067.69 1252.52 1067.52 1252.56 1079.26 1274.74 1079.19 1274.66 1084.89 1246.23 1084.86 1246.25 1045.72 1274.68 1045.53 1274.63 1050.93 1252.57 1050.91 1252.58 1062.11 1272.06 1062.11 1271.98 1067.69" fill="#fff" />
+      <path d="M944.05,1075.14l-19.82-.07-4.33,8.87c-.65,1.33-5.59,1.05-6.4.3l16.97-37.21c.76-1.66,6.08-1.86,6.8-.29l17.29,37.38c-1.14.8-5.99,1.17-6.67-.34l-3.85-8.64ZM941.49,1069.28l-7.8-16.07-7.26,16.09,15.05-.02Z" fill="#fff" />
+      <polygon points="652.54 1067.53 632.54 1067.81 632.44 1079.25 655.05 1079.18 654.98 1084.89 626.65 1084.85 626.54 1045.73 654.3 1045.53 654.43 1050.8 632.52 1050.93 632.5 1062.04 652.44 1062.14 652.54 1067.53" fill="#fff" />
+      <path d="M790.75,1064.26l5.84-.23.11,15.03c-7.03,6.3-17.51,8.08-26.34,3.52-6.03-3.12-9.67-9.6-10.09-15.18-.53-7.18,1.56-13.6,7.35-17.93,8.92-6.66,21.44-5.85,28.88,2.06-1.87,1.63-4.01,3.04-5.09,3.08-5.85-5.43-15.08-5.41-20.68-.16s-6.13,14.58-.66,20.69,15.36,6,21.01.71l-.34-11.58Z" fill="#fff" />
+      <path d="M899.44,1083.54c-8.64,3.2-16.41,1.34-23.7-3.27l2.84-5.13c5.76,4.37,12.32,5.89,18.81,3.23,1.39-.57,3.36-3.41,3.2-4.81s-2.44-3.76-3.95-4.2l-12.4-3.55c-3.26-.93-6.86-4.39-7.41-7.13-.68-3.4,1.28-8.8,4.55-10.72,7.76-4.56,16.12-3.61,23.85.89l-2.88,4.86c-7.76-5.33-17.74-3.9-19.3,1.64-.39,1.37,1.78,4.53,3.24,4.92l11.45,3.08c4.64,1.25,8.59,4.85,8.83,8.94.27,4.6-2.3,9.45-7.13,11.24Z" fill="#fff" />
+      <path d="M696.06,1074.96c1.23.38,3.8,2.72,4.19,3.66-5.41,5.82-12.25,7.45-19.66,6.01-6.22-1.21-12.39-5.5-14.89-12.79-3.21-9.34.61-19.52,8.6-23.96,8.72-4.85,19.75-3.77,26.22,4.02-1.02,1.29-2.89,3.6-3.71,3.14l-3.66-2.06c-7.11-3.99-15.14-2.73-19.37,3.01-4.73,6.41-4.02,14.72,1.73,19.99,5.41,4.95,14.11,5.16,20.56-1.02Z" fill="#fff" />
+      <path d="M1233,1063.36c1.39,0,1.51,5.54.07,5.66l-18.74.25-.27,15.55-6.31-.05v-39.02s28.24-.02,28.24-.02l-.2,5.19-21.71.04.17,12.28,18.75.13Z" fill="#fff" />
+      <polygon points="1194.95 1063.42 1195.4 1069.22 1175.64 1069.28 1175.6 1084.5 1169.44 1084.25 1169.24 1045.75 1197.27 1045.59 1197.92 1050.98 1175.67 1051.03 1175.66 1063.41 1194.95 1063.42" fill="#fff" />
+      <path d="M1073.11,1046.26l-14.83,23.47-.45,14.25c-.81.54-4.86.73-6.2.37l.08-13.54-15.2-24.75,6.82.17,11.61,18.33,11.12-17.77c.77-1.23,4.33-1.38,7.05-.53Z" fill="#fff" />
+      <polygon points="1035.11 1079.13 1035.28 1084.91 1008.58 1084.82 1008.56 1045.74 1014.92 1045.75 1014.77 1079.18 1035.11 1079.13" fill="#fff" />
+      <path d="M1433.73,1084.66l-6.26.17-.04-33.71-12.58-.22-.18-3.53c-.04-.74,2.48-1.82,3.47-1.82l27.87.05c.83.76.83,4.84-.04,5.29l-12.25.26v33.52Z" fill="#fff" />
+      <rect x="1132.48" y="1062.04" width="39.14" height="6.41" transform="translate(85.5125 2216.098) rotate(-89.9354)" fill="#fff" />
+      <rect x="842.31" y="1062.17" width="39.12" height="6.33" transform="translate(-204.9161 1925.4034) rotate(-89.9033)" fill="#fff" />
     </svg>
   );
 }
@@ -62,25 +195,16 @@ export function Logo({
   return (
     <Link
       href="/"
-      className={cn("group inline-flex items-center gap-3", className)}
+      className={cn("inline-flex items-center", className)}
       aria-label={`${site.shortName} — home`}
     >
-      <LogoMark className="h-9 w-9 shrink-0 sm:h-10 sm:w-10" />
-      <span className="flex flex-col leading-none">
-        {/* Gradient wordmark, matching the supplied artwork. Driven by the
-            frozen --color-logo-* stops, so it is theme-proof. */}
-        <span className="text-gradient-logo font-heading text-xl font-bold tracking-[0.08em] uppercase sm:text-[1.35rem]">
-          Distinct
-        </span>
-        {showTagline ? (
-          <span
-            className="font-heading mt-1 hidden text-[0.5625rem] font-medium tracking-[0.18em] whitespace-nowrap uppercase min-[340px]:block sm:text-[0.625rem] sm:tracking-[0.22em]"
-            style={{ color: "var(--color-logo-cyan)" }}
-          >
-            {site.tagline}
-          </span>
-        ) : null}
-      </span>
+      {/* The monogram is much taller than the letters in this artwork, so the
+          lockup needs real height before the wordmark reads. */}
+      {showTagline ? (
+        <LogoLockup className="h-12 w-auto sm:h-14" />
+      ) : (
+        <LogoMark className="h-10 w-auto sm:h-11" />
+      )}
     </Link>
   );
 }

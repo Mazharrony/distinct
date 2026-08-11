@@ -8,7 +8,7 @@ import { telLink, whatsappLink } from "@/content/site";
  */
 export function FloatingContactBar() {
   return (
-    <div className="fixed inset-x-0 bottom-0 z-40 border-t border-line bg-surface-raised/95 backdrop-blur-md sm:hidden">
+    <div className="floating-contact-bar fixed inset-x-0 bottom-0 z-40 border-t border-line bg-surface-raised/95 backdrop-blur-md sm:hidden">
       <div className="grid grid-cols-3 pb-[env(safe-area-inset-bottom)]">
         <a
           href={telLink}

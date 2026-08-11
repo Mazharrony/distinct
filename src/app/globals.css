@@ -3,40 +3,42 @@
 /* ---------------------------------------------------------------------------
    Distinct Solutions — design tokens (dark)
 
-   Built from the brochure artwork: near-black canvas, emerald as the leading
-   accent, blue secondary, gold reserved for the offer.
+   The palette is taken from the logo's own gradient (public/logo.svg), so the
+   interface and the mark share one set of colours.
 
-   On dark the contrast rule INVERTS. The brand spectrum that could not carry
-   text on white now reads comfortably (measured against the page):
+   Measured against the page background, those stops land very differently:
 
-     emerald 11.74:1 · teal 10.84:1 · gold 10.07:1 · cyan 8.54:1 · blue 6.74:1
+     green #00a24e 5.86:1 · green-mid #009b56 5.44:1 · teal #00886c 4.42:1
+     mid-blue #006991 3.20:1 · blue #005aa4 2.80:1
 
-   The one trap: white on emerald is 1.67:1. Solid accent buttons take an INK
-   label, never white. --color-on-accent exists so that cannot be got wrong.
+   So the range splits by job:
+     - GREEN end carries text, icons and actions (>= 4.5:1)
+     - BLUE end is decorative only — gradients, rules, background washes.
+       Never put text or a meaningful icon in the logo blue on this canvas.
+
+   The other trap: white on the logo green is only 3.34:1, ink is 6.00:1. Solid
+   accent buttons take an INK label — --color-on-accent exists so that cannot
+   be got wrong.
 --------------------------------------------------------------------------- */
 
 @theme {
-  /* ---- Logo -------------------------------------------------------------
-     Frozen. These are the original artwork values and must never be themed —
-     the logo has to render identically whatever the surface does. Only
-     LogoMark and the wordmark read these.
+  /* ---- The logo gradient, verbatim -------------------------------------
+     These are the exact stops from the supplied SVG, so the UI gradients and
+     the mark are the same colours. Decorative use only at the blue end.
   ---------------------------------------------------------------------- */
-  --color-logo-blue: #0089d1;
-  --color-logo-cyan: #00afc0;
-  --color-logo-teal: #00bfa5;
-  --color-logo-emerald: #00c878;
+  --color-brand-blue: #005aa4;
+  --color-brand-cyan: #006991;
+  --color-brand-teal: #00886c;
+  --color-brand-emerald: #00a24e;
 
-  /* ---- Brand spectrum, tuned for dark surfaces ------------------------- */
-  --color-brand-blue: #12a0e8;
-  --color-brand-cyan: #00bcd4;
-  --color-brand-teal: #00d9b8;
-  --color-brand-emerald: #00e676;
-
-  /* The workhorse accent: icons, links, active states, solid buttons. */
-  --color-accent: #00e676;
-  --color-accent-soft: #00d9b8;
-  --color-accent-dim: #00b45c;
-  /* Label colour for anything sitting ON the accent. 12.02:1. */
+  /* The workhorse accent: icons, links, active states, solid buttons.
+     Exactly the logo's green stop. 5.86:1 on the page. */
+  --color-accent: #00a24e;
+  /* Hover lifts rather than darkens — same hue, brighter. 7.08:1. */
+  --color-accent-soft: #00b357;
+  /* Pressed and borders. */
+  --color-accent-dim: #008f45;
+  /* Label colour for anything sitting ON the accent. 6.00:1. */
   --color-on-accent: #06080a;
 
   /* ---- Gold — the offer, and nothing else ------------------------------ */
@@ -64,7 +66,7 @@
 
   /* Feedback — lifted so they hold up on a dark ground */
   --color-danger: #ff6b6b;
-  --color-success: #00e676;
+  --color-success: #00a24e;
 
   /* Fonts (wired up in layout.tsx via next/font) */
   --font-heading: var(--font-outfit), ui-sans-serif, system-ui, sans-serif;
@@ -143,6 +145,12 @@
   :root {
     color-scheme: dark;
   }
+
+  /* MobileNav sets this while the drawer is open. Keeps the fixed contact bar
+     from showing through, without coupling the two components together. */
+  body[data-drawer-open] .floating-contact-bar {
+    display: none;
+  }
 }
 
 /* --- Utilities ----------------------------------------------------------- */
@@ -155,21 +163,6 @@
     var(--color-brand-teal) 67%,
     var(--color-brand-emerald) 100%
   );
-}
-
-/* The logo lockup only. Reads the frozen --color-logo-* values so the wordmark
-   is identical to the supplied artwork regardless of the theme. */
-@utility text-gradient-logo {
-  background-image: linear-gradient(
-    95deg,
-    var(--color-logo-blue) 0%,
-    var(--color-logo-cyan) 38%,
-    var(--color-logo-teal) 66%,
-    var(--color-logo-emerald) 100%
-  );
-  background-clip: text;
-  -webkit-background-clip: text;
-  color: transparent;
 }
 
 /* Emerald edge-glow, as on the offer panel in the brochure. */
@@ -254,21 +247,20 @@
 }
 
 /* The signature headline.
-   The stops are weighted toward the green end so the phrase actually lands on
-   emerald rather than fading out in the blue-to-teal middle, which is what the
-   even spacing did. A brighter blue anchors the start against the dark ground. */
+   This one is TEXT, so it starts at the logo's mid-blue rather than its darkest
+   stop: #005aa4 measures 2.80:1 here and would fail even the 3:1 allowance for
+   large text. Running #006991 → #00a24e keeps the logo's blue-to-green
+   character with 3.20:1 at the dimmest point. */
 @utility text-gradient-brand-animated {
   background-image: linear-gradient(
     92deg,
-    #1eb0f5 0%,
-    var(--color-brand-cyan) 14%,
-    var(--color-brand-teal) 28%,
+    var(--color-brand-cyan) 0%,
+    var(--color-brand-teal) 22%,
     var(--color-brand-emerald) 44%,
-    #3bff96 50%,
+    var(--color-accent-soft) 50%,
     var(--color-brand-emerald) 56%,
-    var(--color-brand-teal) 72%,
-    var(--color-brand-cyan) 86%,
-    #1eb0f5 100%
+    var(--color-brand-teal) 78%,
+    var(--color-brand-cyan) 100%
   );
   background-size: 200% 100%;
   background-clip: text;

@@ -50,7 +50,7 @@ export const site = {
     country: "United Arab Emirates",
     display: "Dubai, UAE",
   },
-  hours: "Saturday – Thursday, 8:00 – 18:00",
+  hours: "Monday – Sunday, 8:00 – 18:00",
 } as const;
 
 /** Builds a wa.me link with a prefilled message. */

@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Mail, MapPin, Phone } from "lucide-react";
 import { WhatsAppIcon } from "@/components/ui/icons/WhatsAppIcon";
 import { Container } from "@/components/ui/Container";
-import { LogoMark } from "@/components/ui/Logo";
+import { LogoLockup } from "@/components/ui/Logo";
 import {
   mailLink,
   mainNav,
@@ -23,20 +23,7 @@ export function Footer() {
       <Container className="py-14 lg:py-18">
         <div className="grid gap-12 lg:grid-cols-[1.4fr_1fr_1fr_1.1fr]">
           <div>
-            <div className="flex items-center gap-3">
-              <LogoMark className="h-10 w-10 shrink-0" gradientId="footer-mark" />
-              <span className="flex flex-col leading-none">
-                <span className="text-gradient-logo font-heading text-xl font-bold tracking-[0.08em] uppercase">
-                  Distinct
-                </span>
-                <span
-                  className="font-heading mt-1 text-[0.625rem] font-medium tracking-[0.22em] uppercase"
-                  style={{ color: "var(--color-logo-cyan)" }}
-                >
-                  {site.tagline}
-                </span>
-              </span>
-            </div>
+            <LogoLockup className="h-12 w-auto" />
             <p className="mt-5 max-w-sm text-sm leading-relaxed">
               {site.name}. British-run property maintenance, technical services,
               renovation and fit-out across Dubai.

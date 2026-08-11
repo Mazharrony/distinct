@@ -38,14 +38,6 @@ export const galleryImages: GalleryImage[] = [
     service: "kitchens-joinery",
   },
   {
-    src: "/gallery/kitchen-island-fluted-lighting.jpeg",
-    alt: "Contemporary kitchen with a fluted timber island, backlit shelving and glass pendant lights",
-    width: 1101,
-    height: 784,
-    caption: "Custom kitchen with fluted island and feature lighting",
-    service: "kitchens-joinery",
-  },
-  {
     src: "/gallery/bathroom-walk-in-shower-vanity.jpeg",
     alt: "Renovated bathroom with a frameless walk-in shower, timber double vanity and brushed brass fittings",
     width: 1320,
@@ -92,6 +84,22 @@ export const galleryImages: GalleryImage[] = [
     height: 857,
     caption: "Bathroom refurbishment",
     service: "interior-fit-out-renovations",
+  },
+  {
+    src: "/gallery/gloss-white-kitchen-marble-splashback.jpeg",
+    alt: "Handleless gloss-white kitchen with a marble-effect splashback, integrated oven and induction hob",
+    width: 920,
+    height: 1600,
+    caption: "Handleless kitchen with marble splashback",
+    service: "kitchens-joinery",
+  },
+  {
+    src: "/gallery/water-treatment-system-installation.jpeg",
+    alt: "Whole-house water treatment installation with twin osmosis vessels, softener, pressure vessel and booster pump",
+    width: 1220,
+    height: 1600,
+    caption: "Whole-house water treatment installation",
+    service: "water-filtration",
   },
   {
     src: "/gallery/whole-house-water-filtration-system.jpeg",

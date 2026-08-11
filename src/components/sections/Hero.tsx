@@ -44,9 +44,12 @@ export function Hero() {
         <div className="max-w-2xl">
           <p
             style={{ "--rise-delay": "80ms" } as React.CSSProperties}
-            className="rise-in font-heading inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-2 text-xs font-medium tracking-[0.14em] text-white uppercase backdrop-blur-sm"
+            className="rise-in font-heading inline-flex items-center gap-2.5 rounded-full border border-white/15 bg-white/5 py-2 pr-4 pl-3 text-xs font-medium tracking-[0.14em] text-white uppercase backdrop-blur-sm"
           >
-            <span aria-hidden="true">🇬🇧</span>
+            {/* Sized independently of the label so the flag actually reads */}
+            <span aria-hidden="true" className="text-xl leading-none">
+              🇬🇧
+            </span>
             British-run · Dubai based
           </p>
 
@@ -71,17 +74,20 @@ export function Hero() {
             style={{ "--rise-delay": "320ms" } as React.CSSProperties}
             className="rise-in mt-9 flex flex-col gap-3 sm:flex-row"
           >
-            <ButtonLink href="#contact" size="lg">
-              Get a free quote
-              <ArrowRight className="size-4" aria-hidden="true" />
-            </ButtonLink>
-            <ButtonLink
-              href={whatsappLink()}
-              size="lg"
-              className="border border-white/25 bg-white/5 text-white backdrop-blur-sm hover:bg-white/15"
-            >
+            {/* WhatsApp carries the green; the quote button takes the dark
+                treatment. Its border is load-bearing — ink on the hero measures
+                1.02:1, so without it the button would be invisible. */}
+            <ButtonLink href={whatsappLink()} size="lg">
               <WhatsAppIcon className="size-4" aria-hidden="true" />
               WhatsApp us
+            </ButtonLink>
+            <ButtonLink
+              href="#contact"
+              size="lg"
+              className="border border-white/30 bg-ink/60 text-white backdrop-blur-sm hover:border-white/50 hover:bg-ink/80"
+            >
+              Get a free quote
+              <ArrowRight className="size-4" aria-hidden="true" />
             </ButtonLink>
           </div>
 

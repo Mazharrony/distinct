@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { ChevronRight, Mail, Menu, Phone, X } from "lucide-react";
 import { WhatsAppIcon } from "@/components/ui/icons/WhatsAppIcon";
 import { Logo } from "@/components/ui/Logo";
@@ -19,8 +20,22 @@ export function MobileNav() {
 
     const previouslyFocused = document.activeElement as HTMLElement | null;
     const trigger = triggerRef.current;
-    const { overflow } = document.body.style;
+
+    // iOS Safari ignores `overflow: hidden` on body, so pin the page instead
+    // and put the scroll position back on close.
+    const scrollY = window.scrollY;
+    const prev = {
+      position: document.body.style.position,
+      top: document.body.style.top,
+      width: document.body.style.width,
+      overflow: document.body.style.overflow,
+    };
+    document.body.style.position = "fixed";
+    document.body.style.top = `-${scrollY}px`;
+    document.body.style.width = "100%";
     document.body.style.overflow = "hidden";
+    // Lets globals.css hide the floating contact bar while the drawer is open.
+    document.body.dataset.drawerOpen = "true";
 
     const panel = panelRef.current;
     const focusables = panel?.querySelectorAll<HTMLElement>(
@@ -50,7 +65,20 @@ export function MobileNav() {
     document.addEventListener("keydown", onKeyDown);
     return () => {
       document.removeEventListener("keydown", onKeyDown);
-      document.body.style.overflow = overflow;
+
+      document.body.style.position = prev.position;
+      document.body.style.top = prev.top;
+      document.body.style.width = prev.width;
+      document.body.style.overflow = prev.overflow;
+      delete document.body.dataset.drawerOpen;
+
+      // While pinned, the body is out of flow and the document collapses, so
+      // an immediate scrollTo clamps against the short height and lands ~400px
+      // above where the reader was. Waiting a frame lets layout recover first.
+      requestAnimationFrame(() => {
+        window.scrollTo({ top: scrollY, behavior: "instant" });
+      });
+
       const restoreTo =
         previouslyFocused && previouslyFocused !== document.body
           ? previouslyFocused
@@ -72,8 +100,14 @@ export function MobileNav() {
         <Menu className="size-6" aria-hidden="true" />
       </button>
 
-      {open ? (
-        <div className="fixed inset-0 z-100 lg:hidden">
+      {/* Portalled to <body>. The header sets backdrop-filter once scrolled,
+          which makes it the containing block for position:fixed descendants —
+          rendered in place, this overlay collapsed to the header's height.
+          No mounted guard needed: `open` only becomes true from a click, so
+          this never runs during SSR or the hydrating render. */}
+      {open
+        ? createPortal(
+            <div className="fixed inset-0 z-100 h-dvh lg:hidden">
           <button
             type="button"
             aria-label="Close menu"
@@ -90,7 +124,7 @@ export function MobileNav() {
             className="absolute inset-y-0 right-0 flex w-full max-w-sm flex-col border-l border-line bg-surface shadow-2xl"
           >
             <div className="flex h-18 shrink-0 items-center justify-between border-b border-line px-5 sm:h-20">
-              <Logo showTagline={false} />
+              <Logo />
               <button
                 type="button"
                 onClick={() => setOpen(false)}
@@ -180,8 +214,10 @@ export function MobileNav() {
               </p>
             </div>
           </div>
-        </div>
-      ) : null}
+            </div>,
+            document.body,
+          )
+        : null}
     </>
   );
 }

@@ -257,8 +257,8 @@ export const services: Service[] = [
     ],
     outro:
       "All works are carried out with safety and professional standards in mind.",
-    image: "/gallery/kitchen-island-fluted-lighting.jpeg",
-    imageAlt: "Kitchen with backlit shelving, pendant lights and concealed LED lighting",
+    image: "/gallery/gloss-white-kitchen-marble-splashback.jpeg",
+    imageAlt: "Kitchen with under-cabinet lighting, sockets and switches installed to the splashback",
     faqs: [
       {
         q: "Can you add sockets or move lighting during a renovation?",

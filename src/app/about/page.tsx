@@ -82,12 +82,12 @@ export default function AboutPage() {
               <Reveal>
                 <div className="relative aspect-4/3 overflow-hidden rounded-3xl bg-surface-subtle">
                   <Image
-                    src="/gallery/kitchen-island-fluted-lighting.jpeg"
-                    alt="Contemporary kitchen fit-out with a fluted island and feature lighting"
+                    src="/gallery/handleless-kitchen-marble-island.jpeg"
+                    alt="Contemporary kitchen fit-out with a marble waterfall island"
                     fill
                     sizes="(min-width: 1024px) 45vw, 100vw"
                     placeholder="blur"
-                    blurDataURL={blurMap["/gallery/kitchen-island-fluted-lighting.jpeg"]}
+                    blurDataURL={blurMap["/gallery/handleless-kitchen-marble-island.jpeg"]}
                     className="object-cover"
                   />
                 </div>

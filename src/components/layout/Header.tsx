@@ -5,8 +5,9 @@ import { cn } from "@/lib/cn";
 import { Container } from "@/components/ui/Container";
 import { Logo } from "@/components/ui/Logo";
 import { ButtonLink } from "@/components/ui/Button";
+import { WhatsAppIcon } from "@/components/ui/icons/WhatsAppIcon";
 import { MobileNav } from "@/components/layout/MobileNav";
-import { mainNav } from "@/content/site";
+import { mainNav, whatsappLink } from "@/content/site";
 
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
@@ -87,10 +88,23 @@ export function Header() {
         </nav>
 
         <div className="flex items-center gap-2">
-          {/* Wrapped rather than using `hidden` on the button itself — the
-              button's own `inline-flex` is the same utility layer and wins. */}
+          {/* Wrapped rather than using `hidden` on the buttons themselves — a
+              button's own `inline-flex` sits in the same utility layer as
+              `hidden` and wins, so the class would have no effect. */}
+          <span className="hidden md:block">
+            <ButtonLink href={whatsappLink()}>
+              <WhatsAppIcon className="size-4" aria-hidden="true" />
+              WhatsApp
+            </ButtonLink>
+          </span>
           <span className="hidden sm:block">
-            <ButtonLink href="#contact">Get a quote</ButtonLink>
+            <ButtonLink
+              href="#contact"
+              variant="secondary"
+              className="border-white/25"
+            >
+              Get a quote
+            </ButtonLink>
           </span>
           <MobileNav />
         </div>
