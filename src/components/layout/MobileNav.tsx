@@ -59,7 +59,12 @@ export function MobileNav() {
     const focusables = panel?.querySelectorAll<HTMLElement>(
       'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])',
     );
-    focusables?.[0]?.focus();
+
+    // Focus the panel, not the first link. Programmatic focus on a link paints
+    // a focus ring in iOS Safari — that was the box drawn around the logo on
+    // open. A tabIndex={-1} container takes focus silently, and screen readers
+    // announce the dialog's label as they enter.
+    panel?.focus({ preventScroll: true });
 
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
@@ -70,11 +75,14 @@ export function MobileNav() {
 
       const first = focusables[0];
       const last = focusables[focusables.length - 1];
+      const active = document.activeElement;
 
-      if (event.shiftKey && document.activeElement === first) {
+      // Focus starts on the panel itself, so shift+Tab from there has to wrap
+      // to the end rather than escaping the dialog.
+      if (event.shiftKey && (active === first || active === panel)) {
         event.preventDefault();
         last.focus();
-      } else if (!event.shiftKey && document.activeElement === last) {
+      } else if (!event.shiftKey && active === last) {
         event.preventDefault();
         first.focus();
       }
@@ -151,7 +159,8 @@ export function MobileNav() {
             role="dialog"
             aria-modal="true"
             aria-label="Site menu"
-            className="absolute inset-y-0 right-0 flex w-full max-w-sm flex-col border-l border-line bg-surface shadow-2xl"
+            tabIndex={-1}
+            className="absolute inset-y-0 right-0 flex w-full max-w-sm flex-col border-l border-line bg-surface shadow-2xl outline-none"
           >
             <div className="flex h-18 shrink-0 items-center justify-between border-b border-line px-5 sm:h-20">
               <Logo />
