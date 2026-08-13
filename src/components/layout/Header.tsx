@@ -91,7 +91,11 @@ export function Header() {
           {/* Wrapped rather than using `hidden` on the buttons themselves — a
               button's own `inline-flex` sits in the same utility layer as
               `hidden` and wins, so the class would have no effect. */}
-          <span className="hidden md:block">
+          {/* xl, not md: with six nav items the header overflows at 1024 if
+              this shows as soon as the nav does. The nav is the more useful of
+              the two at that width, and WhatsApp is still one tap away in the
+              hero, the drawer and the contact section. */}
+          <span className="hidden xl:block">
             <ButtonLink href={whatsappLink()}>
               <WhatsAppIcon className="size-4" aria-hidden="true" />
               WhatsApp

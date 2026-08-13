@@ -11,6 +11,7 @@ import { OfferBanner } from "@/components/sections/OfferBanner";
 import { GalleryGrid } from "@/components/sections/GalleryGrid";
 import { ContactSection } from "@/components/sections/ContactSection";
 import { AudienceStrip } from "@/components/sections/AudienceStrip";
+import { Testimonials } from "@/components/sections/Testimonials";
 import { services } from "@/content/services";
 import { galleryImages } from "@/content/gallery";
 import { blurMap } from "@/content/blur";
@@ -131,6 +132,9 @@ export default function HomePage() {
           </div>
         </Container>
       </section>
+
+      {/* Straight after the work — proof lands hardest once they have seen it */}
+      <Testimonials />
 
       <section id="process" className="scroll-mt-24">
         <ProcessSteps />

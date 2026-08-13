@@ -76,6 +76,7 @@ export const mainNav = [
   { label: "Services", href: "#services", id: "services" },
   { label: "About", href: "#about", id: "about" },
   { label: "Our Work", href: "#work", id: "work" },
+  { label: "Reviews", href: "#reviews", id: "reviews" },
   { label: "Process", href: "#process", id: "process" },
   { label: "Contact", href: "#contact", id: "contact" },
 ] as const;
@@ -251,3 +252,60 @@ export const offer = {
     "Book your first service or project with Distinct Solutions and receive 10% off labour costs.",
   terms: "For new customers only. Terms and conditions apply.",
 } as const;
+
+/* -------------------------------------------------------------------------- */
+/* Testimonials                                                                */
+/* -------------------------------------------------------------------------- */
+
+export type Testimonial = {
+  quote: string;
+  rating: number;
+};
+
+/**
+ * Customer reviews, exactly as supplied. No names or dates came with them, so
+ * none are shown — inventing an attribution would misrepresent a real review.
+ * Add `name` / `source` fields here if those details become available.
+ */
+export const testimonials: Testimonial[] = [
+  {
+    rating: 5,
+    quote:
+      "Excellent service from start to finish. The team arrived on time, were professional and kept everything clean and tidy. The quality of the renovation work was exactly what we wanted. Would definitely recommend Distinct Solutions.",
+  },
+  {
+    rating: 5,
+    quote:
+      "Really impressed with the service. Communication was excellent, the team were polite and professional, and the work was completed to a very high standard. It's refreshing to find a company that actually cares about getting things right.",
+  },
+  {
+    rating: 5,
+    quote:
+      "Used Distinct Solutions for maintenance and renovation works at our villa. Everything was handled professionally and efficiently. They gave us clear pricing upfront and there were no surprises. Very happy with the final result.",
+  },
+  {
+    rating: 5,
+    quote:
+      "Fantastic experience. From the initial quotation through to completion, the team were helpful and professional. The workmanship was excellent and they paid attention to the small details. Highly recommended.",
+  },
+  {
+    rating: 5,
+    quote:
+      "Great company to deal with. They responded quickly, arranged the work around our schedule and completed everything exactly as agreed. The team were respectful of our home and left everything clean afterwards.",
+  },
+  {
+    rating: 5,
+    quote:
+      "Very happy with Distinct Solutions. We had several different jobs that needed doing and they were able to coordinate everything for us. Good communication, reliable service and excellent workmanship.",
+  },
+  {
+    rating: 5,
+    quote:
+      "Couldn't be happier with the result. The team were professional from beginning to end and the quality of the work really stood out. We would definitely use Distinct Solutions again.",
+  },
+  {
+    rating: 5,
+    quote:
+      "Highly recommended. Honest advice, competitive pricing and very good workmanship. They turned up when they said they would and completed the job without any hassle.",
+  },
+];
