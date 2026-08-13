@@ -10,9 +10,11 @@ function solid(hex: string) {
 }
 
 export const blurMap: Record<string, string> = {
+  "/gallery/artificial-grass-lawn.jpeg": solid("#889474"),
   "/gallery/bathroom-shower-vanity-refurbishment.jpeg": solid("#aea69d"),
   "/gallery/bathroom-walk-in-shower-vanity.jpeg": solid("#b4a49b"),
   "/gallery/bespoke-walnut-kitchen-joinery.jpeg": solid("#8c7965"),
+  "/gallery/garden-lighting-stepping-stones.jpeg": solid("#6b6c66"),
   "/gallery/gloss-white-kitchen-marble-splashback.jpeg": solid("#6e6b66"),
   "/gallery/handleless-kitchen-marble-island.jpeg": solid("#8b8577"),
   "/gallery/herringbone-flooring-hallway-panelling.jpeg": solid("#75736f"),
@@ -21,6 +23,7 @@ export const blurMap: Record<string, string> = {
   "/gallery/marble-bathroom-renovation.jpeg": solid("#a3a3a2"),
   "/gallery/marble-island-kitchen-lvt-flooring.jpeg": solid("#98887a"),
   "/gallery/open-plan-kitchen-living-fit-out.jpeg": solid("#bca699"),
+  "/gallery/pergola-outdoor-kitchen.jpeg": solid("#7c7b70"),
   "/gallery/reeded-island-kitchen-quartz.jpeg": solid("#81786b"),
   "/gallery/spc-flooring-installation.jpeg": solid("#9a8881"),
   "/gallery/staircase-flooring-landing.jpeg": solid("#b0b0ac"),

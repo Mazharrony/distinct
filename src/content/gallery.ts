@@ -157,6 +157,30 @@ export const galleryImages: GalleryImage[] = [
     caption: "Herringbone LVT hallway",
     service: "flooring",
   },
+  {
+    src: "/gallery/garden-lighting-stepping-stones.jpeg",
+    alt: "Side garden at dusk with stepping stones set into artificial grass, uplit planters and recessed ground lighting",
+    width: 1214,
+    height: 1600,
+    caption: "Garden lighting and stepping-stone path",
+    service: "landscaping",
+  },
+  {
+    src: "/gallery/pergola-outdoor-kitchen.jpeg",
+    alt: "Pergola over an outdoor kitchen with a stone island, built-in barbecue and porcelain-tiled terrace",
+    width: 914,
+    height: 1600,
+    caption: "Pergola with outdoor kitchen and terrace",
+    service: "landscaping",
+  },
+  {
+    src: "/gallery/artificial-grass-lawn.jpeg",
+    alt: "Artificial grass lawn laid to a villa garden, edged with porcelain paving and boundary railings",
+    width: 1320,
+    height: 967,
+    caption: "Artificial grass lawn installation",
+    service: "landscaping",
+  },
 ];
 
 /** Featured selection for the home page preview. */

@@ -581,8 +581,8 @@ export const services: Service[] = [
     ],
     outro:
       "From a simple garden refresh to a complete outdoor transformation, we can help bring your vision to life.",
-    image: "/gallery/open-plan-kitchen-living-fit-out.jpeg",
-    imageAlt: "Property exterior and outdoor living space",
+    image: "/gallery/pergola-outdoor-kitchen.jpeg",
+    imageAlt: "Pergola over an outdoor kitchen with a stone island and porcelain-tiled terrace",
     faqs: [
       {
         q: "Is artificial grass a better option in Dubai?",
