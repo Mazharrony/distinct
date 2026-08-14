@@ -181,6 +181,38 @@ export const galleryImages: GalleryImage[] = [
     caption: "Artificial grass lawn installation",
     service: "landscaping",
   },
+  {
+    src: "/gallery/pool-marble-sun-shelf.jpeg",
+    alt: "Swimming pool with a curved marble sun-shelf and coping, planting along the boundary behind",
+    width: 1320,
+    height: 725,
+    caption: "Pool with marble sun-shelf",
+    service: "waterproofing",
+  },
+  {
+    src: "/gallery/lap-pool-deep-blue.jpeg",
+    alt: "Deep blue lap pool with stone coping running alongside a mature hedge",
+    width: 920,
+    height: 1600,
+    caption: "Lap pool and stone coping",
+    service: "waterproofing",
+  },
+  {
+    src: "/gallery/pool-terrace-pergola-shade.jpeg",
+    alt: "Pool terrace with a louvred shade structure, artificial grass and porcelain-tiled decking",
+    width: 720,
+    height: 1280,
+    caption: "Pool terrace with shade structure",
+    service: "landscaping",
+  },
+  {
+    src: "/gallery/open-plan-living-lvt-flooring.jpeg",
+    alt: "Open-plan living and dining space with wide-plank LVT flooring and a marble breakfast island",
+    width: 912,
+    height: 1600,
+    caption: "Open-plan living with LVT flooring",
+    service: "interior-fit-out-renovations",
+  },
 ];
 
 /** Featured selection for the home page preview. */
